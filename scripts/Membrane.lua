@@ -20,10 +20,12 @@ local toggle = config:load("MembraneToggle") or false
 -- Variables
 local nTen = 8
 
+-- Create string
 local function makeName(ten, seg)
 	return "Ten" .. ((ten - 1) % nTen) + 1 .. "Seg" .. seg
 end
 
+-- Setup web
 local function makeWeb(name)
 	
 	local ten = tonumber(name:match("[tT]en(%d+)"))
@@ -38,6 +40,7 @@ local function makeWeb(name)
 	
 end
 
+-- Create membrane webs
 for _, part in ipairs(membraneParts) do
 	
 	membrane:define(
