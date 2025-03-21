@@ -10,6 +10,7 @@ This Figura avatar is a template designed around turning the user into a Cecaeli
 
 ### Credits:
 - Irri
+- Psycho Breadstick
 - pigs_bane
 - InkGecko
 - Arber
@@ -23,6 +24,9 @@ This Figura avatar is a template designed around turning the user into a Cecaeli
 - 4P5 (GroundCheck)
 - Manuel (Membranes, Molang Conversions)
 - Auria (Molang Conversions)
+
+### Origin Datapack:
+- [Cecaelia Origin](https://github.com/PsychoBreadstick/Cecaelia-Origin) (Created by Psycho Breadstick)
 
 ## Features
 Section under construction
