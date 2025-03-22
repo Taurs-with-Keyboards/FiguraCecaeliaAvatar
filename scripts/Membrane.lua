@@ -80,8 +80,8 @@ if not host:isHost() then return end
 
 -- Required scripts
 local itemCheck = require("lib.ItemCheck")
-local s, color = pcall(require, "scripts.ColorProperties")
-if not s then color = {} end
+local s, c = pcall(require, "scripts.ColorProperties")
+if not s then c = {} end
 
 -- Sync on tick
 function events.TICK()
@@ -109,14 +109,14 @@ function events.RENDER(delta, context)
 		t.toggleAct
 			:title(toJson
 				{"",
-				{text = "Toggle Membrane\n\n", bold = true, color = color.primary},
-				{text = "Toggles the visibility of the membrane.\n\n", color = color.secondary},
+				{text = "Toggle Membrane\n\n", bold = true, color = c.primary},
+				{text = "Toggles the visibility of the membrane.\n\n", color = c.secondary},
 				{text = "Notice:\n", bold = true, color = "gold"},
 				{text = "This feature requires MAX permission level to be viewed.", color = "yellow"}}
 			)
 		
 		for _, act in pairs(t) do
-			act:hoverColor(color.hover):toggleColor(color.active)
+			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end

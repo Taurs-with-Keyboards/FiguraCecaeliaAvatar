@@ -99,8 +99,8 @@ if not host:isHost() then return end
 
 -- Required scripts
 local itemCheck = require("lib.ItemCheck")
-local s, color = pcall(require, "scripts.ColorProperties")
-if not s then color = {} end
+local s, c = pcall(require, "scripts.ColorProperties")
+if not s then c = {} end
 
 -- Sync on tick
 function events.TICK()
@@ -133,19 +133,19 @@ function events.RENDER(delta, context)
 		t.vanillaSkinAct
 			:title(toJson
 				{"",
-				{text = "Toggle Vanilla Texture\n\n", bold = true, color = color.primary},
-				{text = "Toggles the usage of your vanilla skin.", color = color.secondary}}
+				{text = "Toggle Vanilla Texture\n\n", bold = true, color = c.primary},
+				{text = "Toggles the usage of your vanilla skin.", color = c.secondary}}
 			)
 		
 		t.modelAct
 			:title(toJson
 				{"",
-				{text = "Toggle Model Shape\n\n", bold = true, color = color.primary},
-				{text = "Adjust the model shape to use Default or Slim Proportions.\nWill be overridden by the vanilla skin toggle.", color = color.secondary}}
+				{text = "Toggle Model Shape\n\n", bold = true, color = c.primary},
+				{text = "Adjust the model shape to use Default or Slim Proportions.\nWill be overridden by the vanilla skin toggle.", color = c.secondary}}
 			)
 		
 		for _, act in pairs(t) do
-			act:hoverColor(color.hover):toggleColor(color.active)
+			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end

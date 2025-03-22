@@ -271,8 +271,8 @@ if not host:isHost() then return end
 
 -- Required scripts
 local itemCheck = require("lib.ItemCheck")
-local s, color = pcall(require, "scripts.ColorProperties")
-if not s then color = {} end
+local s, c = pcall(require, "scripts.ColorProperties")
+if not s then c = {} end
 
 -- Sing keybind
 local singBind   = config:load("AnimSingKeybind") or "key.keyboard.keypad.7"
@@ -313,12 +313,12 @@ function events.RENDER(delta, context)
 	if action_wheel:isEnabled() then
 		t.singAct
 			:title(toJson
-				{text = "Play Singing animation", bold = true, color = color.primary}
+				{text = "Play Singing animation", bold = true, color = c.primary}
 			)
 			:toggled(isSing)
 		
 		for _, act in pairs(t) do
-			act:hoverColor(color.hover):toggleColor(color.active)
+			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end

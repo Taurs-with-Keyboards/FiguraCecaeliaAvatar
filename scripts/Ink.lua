@@ -169,8 +169,8 @@ if not host:isHost() then return end
 -- Required scripts
 local lerp      = require("lib.LerpAPI")
 local itemCheck = require("lib.ItemCheck")
-local s, color = pcall(require, "scripts.ColorProperties")
-if not s then color = {} end
+local s, c = pcall(require, "scripts.ColorProperties")
+if not s then c = {} end
 
 -- Reenabled parts
 parts.group.Meter:visible(true)
@@ -295,21 +295,21 @@ function events.RENDER(delta, context)
 		t.colorAct
 			:title(toJson
 				{"",
-				{text = "Ink Color\n\n", bold = true, color = color.primary},
-				{text = "Scroll to set the color of your ink.\n\n", color = color.secondary},
-				{text = "Selected RGB: ", bold = true, color = color.secondary},
+				{text = "Ink Color\n\n", bold = true, color = c.primary},
+				{text = "Scroll to set the color of your ink.\n\n", color = c.secondary},
+				{text = "Selected RGB: ", bold = true, color = c.secondary},
 				{text = (selectedRGB == 0 and "[%d] "  or "%d " ):format(inkColor[1] * 255), color = "red"},
 				{text = (selectedRGB == 1 and "[%d] "  or "%d " ):format(inkColor[2] * 255), color = "green"},
 				{text = (selectedRGB == 2 and "[%d]\n" or "%d\n"):format(inkColor[3] * 255), color = "blue"},
-				{text = "Selected Hex: ", bold = true, color = color.secondary},
+				{text = "Selected Hex: ", bold = true, color = c.secondary},
 				{text = vectors.rgbToHex(inkColor).."\n\n", color = "#"..vectors.rgbToHex(inkColor)},
-				{text = "Click to change selection.\n\n", color = color.secondary},
+				{text = "Click to change selection.\n\n", color = c.secondary},
 				{text = "Notice:\n", bold = true, color = "gold"},
 				{text = "Brighter colors glow. Glowing settings control glowing.", color = "yellow"}}
 			)
 		
 		for _, act in pairs(t) do
-			act:hoverColor(color.hover):toggleColor(color.active)
+			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end

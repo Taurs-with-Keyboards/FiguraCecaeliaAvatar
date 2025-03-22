@@ -19,8 +19,8 @@ if not s then tail = {} end
 local s, membrane = pcall(require, "scripts.Membrane")
 if not s then membrane = {} end
 
-local s, color, colorActs = pcall(require, "scripts.ColorProperties")
-if not s then color = {} colorActs = {} end
+local s, c, colorActs = pcall(require, "scripts.ColorProperties")
+if not s then c = {} colorActs = {} end
 
 local s, ink = pcall(require, "scripts.Ink")
 if not s then ink = {} end
@@ -126,56 +126,56 @@ function events.RENDER(delta, context)
 	if action_wheel:isEnabled() then
 		pageActs.avatar
 			:title(toJson
-				{text = "Avatar Settings", bold = true, color = color.primary}
+				{text = "Avatar Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.octopus
 			:title(toJson
-				{text = "Octopus Settings", bold = true, color = color.primary}
+				{text = "Octopus Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.glow
 			:title(toJson
-				{text = "Glowing Settings", bold = true, color = color.primary}
+				{text = "Glowing Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.color
 			:title(toJson
-				{text = "Color Settings", bold = true, color = color.primary}
+				{text = "Color Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.anims
 			:title(toJson
-				{text = "Animations", bold = true, color = color.primary}
+				{text = "Animations", bold = true, color = c.primary}
 			)
 		
 		pageActs.armor
 			:title(toJson
-				{text = "Armor Settings", bold = true, color = color.primary}
+				{text = "Armor Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.camera
 			:title(toJson
-				{text = "Camera Settings", bold = true, color = color.primary}
+				{text = "Camera Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.dry
 			:title(toJson
-				{text = "Drying Settings", bold = true, color = color.primary}
+				{text = "Drying Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.whirlpool
 			:title(toJson
-				{text = "Whirlpool Settings", bold = true, color = color.primary}
+				{text = "Whirlpool Settings", bold = true, color = c.primary}
 			)
 		
 		pageActs.eyes
 			:title(toJson
-				{text = "Glowing Eyes Settings", bold = true, color = color.primary}
+				{text = "Glowing Eyes Settings", bold = true, color = c.primary}
 			)
 		
 		for _, act in pairs(pageActs) do
-			act:hoverColor(color.hover)
+			act:hoverColor(c.hover)
 		end
 		
 	end
