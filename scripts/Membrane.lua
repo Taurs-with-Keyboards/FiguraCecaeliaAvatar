@@ -24,7 +24,7 @@ local function makeName(ten, seg)
 	return "Ten" .. ((ten - 1) % nTen) + 1 .. "Seg" .. seg
 end
 
-local function makeNames(name)
+local function makeWeb(name)
 	
 	local ten = tonumber(name:match("[tT]en(%d+)"))
 	local seg = tonumber(name:match("[sS]eg(%d+)"))
@@ -42,7 +42,7 @@ for _, part in ipairs(membraneParts) do
 	
 	membrane:define(
 		part,
-		makeNames(part:getParent():getName())
+		makeWeb(part:getParent():getName())
 	)
 	
 end
