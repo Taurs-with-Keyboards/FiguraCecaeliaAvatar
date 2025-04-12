@@ -21,12 +21,12 @@ local toggle = config:load("MembraneToggle") or false
 local nTen = 8
 
 local function makeName(ten, seg)
-	return 'Ten' .. ((ten - 1) % nTen) + 1 .. 'Seg' .. seg
+	return "Ten" .. ((ten - 1) % nTen) + 1 .. "Seg" .. seg
 end
 
 local function makeNames(name)
 	
-	local numbers = name:gmatch('%d+')
+	local numbers = name:gmatch("%d+")
 	ten = tonumber(numbers())
 	seg = tonumber(numbers())
 	
