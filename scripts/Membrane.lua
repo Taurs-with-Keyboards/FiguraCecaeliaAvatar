@@ -27,8 +27,8 @@ end
 local function makeNames(name)
 	
 	local numbers = name:gmatch("%d+")
-	ten = tonumber(numbers())
-	seg = tonumber(numbers())
+	local ten = tonumber(numbers())
+	local seg = tonumber(numbers())
 	
 	return {
 		parts.group[makeName(ten + 1, seg + 1)],
