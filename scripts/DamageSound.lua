@@ -11,12 +11,12 @@ function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, cat, path)
 	
 	-- If sound contains ".hurt", play an additional hurt sound along side it
 	if id:find(".hurt") then
-		return sounds:playSound("entity.squid.hurt", pos, 0.5)
+		sounds:playSound("entity.squid.hurt", pos, 0.5)
 	end
 	
 	-- If sound contains ".death", play an additional death sound along side it
 	if id:find(".death") then
-		return sounds:playSound("entity.squid.death", pos, 0.5)
+		sounds:playSound("entity.squid.death", pos, 0.5)
 	end
 	
 end
