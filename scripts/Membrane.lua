@@ -106,13 +106,15 @@ function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
 		t.toggleAct
-			:title(toJson
-				{"",
-				{text = "Toggle Membrane\n\n", bold = true, color = c.primary},
-				{text = "Toggles the visibility of the membrane.\n\n", color = c.secondary},
-				{text = "Notice:\n", bold = true, color = "gold"},
-				{text = "This feature requires MAX permission level to be viewed.", color = "yellow"}}
-			)
+			:title(toJson(
+				{
+					"",
+					{text = "Toggle Membrane\n\n", bold = true, color = c.primary},
+					{text = "Toggles the visibility of the membrane.\n\n", color = c.secondary},
+					{text = "Notice:\n", bold = true, color = "gold"},
+					{text = "This feature requires MAX permission level to be viewed.", color = "yellow"}
+				}
+			))
 		
 		for _, act in pairs(t) do
 			act:hoverColor(c.hover):toggleColor(c.active)

@@ -293,20 +293,22 @@ function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
 		t.colorAct
-			:title(toJson
-				{"",
-				{text = "Ink Color\n\n", bold = true, color = c.primary},
-				{text = "Scroll to set the color of your ink.\n\n", color = c.secondary},
-				{text = "Selected RGB: ", bold = true, color = c.secondary},
-				{text = (selectedRGB == 0 and "[%d] "  or "%d " ):format(inkColor[1] * 255), color = "red"},
-				{text = (selectedRGB == 1 and "[%d] "  or "%d " ):format(inkColor[2] * 255), color = "green"},
-				{text = (selectedRGB == 2 and "[%d]\n" or "%d\n"):format(inkColor[3] * 255), color = "blue"},
-				{text = "Selected Hex: ", bold = true, color = c.secondary},
-				{text = vectors.rgbToHex(inkColor).."\n\n", color = "#"..vectors.rgbToHex(inkColor)},
-				{text = "Click to change selection.\n\n", color = c.secondary},
-				{text = "Notice:\n", bold = true, color = "gold"},
-				{text = "Brighter colors glow. Glowing settings control glowing.", color = "yellow"}}
-			)
+			:title(toJson(
+				{
+					"",
+					{text = "Ink Color\n\n", bold = true, color = c.primary},
+					{text = "Scroll to set the color of your ink.\n\n", color = c.secondary},
+					{text = "Selected RGB: ", bold = true, color = c.secondary},
+					{text = (selectedRGB == 0 and "[%d] "  or "%d " ):format(inkColor[1] * 255), color = "red"},
+					{text = (selectedRGB == 1 and "[%d] "  or "%d " ):format(inkColor[2] * 255), color = "green"},
+					{text = (selectedRGB == 2 and "[%d]\n" or "%d\n"):format(inkColor[3] * 255), color = "blue"},
+					{text = "Selected Hex: ", bold = true, color = c.secondary},
+					{text = vectors.rgbToHex(inkColor).."\n\n", color = "#"..vectors.rgbToHex(inkColor)},
+					{text = "Click to change selection.\n\n", color = c.secondary},
+					{text = "Notice:\n", bold = true, color = "gold"},
+					{text = "Brighter colors glow. Glowing settings control glowing.", color = "yellow"}
+				}
+			))
 		
 		for _, act in pairs(t) do
 			act:hoverColor(c.hover):toggleColor(c.active)

@@ -125,54 +125,54 @@ function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
 		pageActs.avatar
-			:title(toJson
+			:title(toJson(
 				{text = "Avatar Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.octopus
-			:title(toJson
+			:title(toJson(
 				{text = "Octopus Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.glow
-			:title(toJson
+			:title(toJson(
 				{text = "Glowing Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.color
-			:title(toJson
+			:title(toJson(
 				{text = "Color Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.anims
-			:title(toJson
+			:title(toJson(
 				{text = "Animations", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.armor
-			:title(toJson
+			:title(toJson(
 				{text = "Armor Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.camera
-			:title(toJson
+			:title(toJson(
 				{text = "Camera Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.dry
-			:title(toJson
+			:title(toJson(
 				{text = "Drying Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.whirlpool
-			:title(toJson
+			:title(toJson(
 				{text = "Whirlpool Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		pageActs.eyes
-			:title(toJson
+			:title(toJson(
 				{text = "Glowing Eyes Settings", bold = true, color = c.primary}
-			)
+			))
 		
 		for _, act in pairs(pageActs) do
 			act:hoverColor(c.hover)
@@ -184,9 +184,9 @@ end
 
 -- Action back to previous page
 local backAct = action_wheel:newAction()
-	:title(toJson
+	:title(toJson(
 		{text = "Go Back?", bold = true, color = "red"}
-	)
+	))
 	:hoverColor(vectors.hexToRGB("FF5555"))
 	:item(itemCheck("barrier"))
 	:onLeftClick(function() ascend() end)

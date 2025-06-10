@@ -198,20 +198,24 @@ function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
 		t.camoAct
-			:title(toJson
-				{"",
-				{text = "Toggle Camo Mode\n\n", bold = true, color = c.primary},
-				{text = "Toggles changing your octopus color to match your surroundings.", color = c.secondary}}
-			)
+			:title(toJson(
+				{
+					"",
+					{text = "Toggle Camo Mode\n\n", bold = true, color = c.primary},
+					{text = "Toggles changing your octopus color to match your surroundings.", color = c.secondary}
+				}
+			))
 			:toggleItem(itemCheck("splash_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}"))
 			:toggled(camo)
 		
 		t.rainbowAct
-			:title(toJson
-				{"",
-				{text = "Toggle Rainbow Mode\n\n", bold = true, color = c.primary},
-				{text = "Toggles on hue-shifting creating a rainbow effect.", color = c.secondary}}
-			)
+			:title(toJson(
+				{
+					"",
+					{text = "Toggle Rainbow Mode\n\n", bold = true, color = c.primary},
+					{text = "Toggles on hue-shifting creating a rainbow effect.", color = c.secondary}
+				}
+			))
 			:toggleItem(itemCheck("lingering_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}"))
 			:toggled(rainbow)
 		

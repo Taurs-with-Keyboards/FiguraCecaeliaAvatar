@@ -314,9 +314,9 @@ function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
 		t.singAct
-			:title(toJson
+			:title(toJson(
 				{text = "Play Singing animation", bold = true, color = c.primary}
-			)
+			))
 			:toggled(isSing)
 		
 		for _, act in pairs(t) do
