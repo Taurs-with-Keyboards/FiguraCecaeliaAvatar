@@ -1,5 +1,5 @@
 # [Cecaelia](https://github.com/Taurs-with-Keyboards/FiguraCecaeliaAvatar)
-### Version: v2.1.2
+### Version: 2.1.2
 This Figura avatar is a template designed around turning the user into a Cecaelia (Octopus Merfolk).
 
 ### Authors:
