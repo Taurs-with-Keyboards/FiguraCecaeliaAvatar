@@ -252,11 +252,6 @@ end
 -- Host only instructions, return tail data
 if not host:isHost() then return tailData end
 
--- Required scripts
-local itemCheck = require("lib.ItemCheck")
-local s, c = pcall(require, "scripts.ColorProperties")
-if not s then c = {} end
-
 -- Tail Keybind
 local tailBind   = config:load("TailTypeKeybind") or "key.keyboard.keypad.1"
 local setTailKey = keybinds:newKeybind("Tail Sensitivity Type"):onPress(function() pings.setTailType(1) end):key(tailBind)
@@ -290,34 +285,51 @@ function events.TICK()
 	
 end
 
--- Table setup
-local t = {}
+-- Required script
+local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+if not s then return tailData end -- Kills script early if ActionWheel.lua isnt found
+
+-- Pages
+local parentPage  = action_wheel:getPage("Main")
+local octopusPage = action_wheel:newPage("Octopus")
+local dryPage     = action_wheel:newPage("Dry")
+
+-- Actions table setup
+local a = {}
 
 -- Actions
-t.tailAct = action_wheel:newAction()
+a.octopusPageAct = parentPage:newAction()
+	:item(itemCheck("ink_sac"))
+	:onLeftClick(function() wheel:descend(octopusPage) end)
+
+a.tailAct = octopusPage:newAction()
 	:onLeftClick(function() pings.setTailType(1) end)
 	:onRightClick(function() pings.setTailType(-1) end)
 	:onScroll(pings.setTailType)
 
-t.smallAct = action_wheel:newAction()
+a.smallAct = octopusPage:newAction()
 	:item(itemCheck("small_amethyst_bud"))
 	:onToggle(pings.setTailSmall)
 	:onScroll(setSmallSize)
 
-t.dryAct = action_wheel:newAction()
+a.dryPageAct = octopusPage:newAction()
+	:item(itemCheck("sponge"))
+	:onLeftClick(function() wheel:descend(dryPage) end)
+
+a.dryAct = dryPage:newAction()
 	:onScroll(setDryTimer)
 	:onLeftClick(function() dryTimer = 400 config:save("TailDryTimer", dryTimer) end)
 
-t.legsAct = action_wheel:newAction()
+a.legsAct = dryPage:newAction()
 	:item(itemCheck("rabbit_foot"))
 	:onScroll(setLegsForm)
 
-t.gradualAct = action_wheel:newAction()
+a.gradualAct = dryPage:newAction()
 	:item(itemCheck("sugar"))
 	:toggleItem(itemCheck("fermented_spider_eye"))
 	:onToggle(pings.setTailGradual)
 
-t.soundAct = action_wheel:newAction()
+a.soundAct = dryPage:newAction()
 	:item(itemCheck("bucket"))
 	:toggleItem(itemCheck("water_bucket"))
 	:onToggle(pings.setTailFallSound)
@@ -369,8 +381,13 @@ end
 function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
+		a.octopusPageAct
+			:title(toJson(
+				{text = "Octopus Settings", bold = true, color = c.primary}
+			))
+		
 		local actionSetup = waterInfo[tailType]
-		t.tailAct
+		a.tailAct
 			:title(toJson(
 				{
 					"",
@@ -385,7 +402,7 @@ function events.RENDER(delta, context)
 			:color(vectors.hexToRGB(actionSetup.color))
 			:item(itemCheck(actionSetup.item.."{CustomPotionColor:"..tostring(0x0094FF).."}"))
 		
-		t.smallAct
+		a.smallAct
 			:title(toJson(
 				{
 					"",
@@ -404,6 +421,12 @@ function events.RENDER(delta, context)
 			)
 			:toggled(small)
 		
+		a.dryPageAct
+			:title(toJson(
+				{text = "Drying Settings", bold = true, color = c.primary}
+			))
+		
+		
 		-- Timers
 		local timers = {
 			set  = dryTimer / 20,
@@ -417,7 +440,7 @@ function events.RENDER(delta, context)
 			cD[k] = timeStr(v)
 		end
 		
-		t.dryAct
+		a.dryAct
 			:title(toJson(
 				{
 					"",
@@ -434,7 +457,7 @@ function events.RENDER(delta, context)
 			))
 			:item(itemCheck((timers.tail ~= 0 or timers.ears ~= 0) and "wet_sponge" or "sponge"))
 		
-		t.legsAct
+		a.legsAct
 			:title(toJson(
 					{"",
 					{text = "Set Legs Threshold\n\n", bold = true, color = c.primary},
@@ -444,7 +467,7 @@ function events.RENDER(delta, context)
 				}
 			))
 		
-		t.gradualAct
+		a.gradualAct
 			:title(toJson(
 				{
 					"",
@@ -454,7 +477,7 @@ function events.RENDER(delta, context)
 			))
 			:toggled(gradual)
 		
-		t.soundAct
+		a.soundAct
 			:title(toJson(
 				{
 					"",
@@ -463,7 +486,7 @@ function events.RENDER(delta, context)
 				}
 			))
 		
-		for _, act in pairs(t) do
+		for _, act in pairs(a) do
 			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
@@ -471,5 +494,5 @@ function events.RENDER(delta, context)
 	
 end
 
--- Return tail data and actions
-return tailData, t
+-- Return tail data
+return tailData

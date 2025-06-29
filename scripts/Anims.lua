@@ -271,11 +271,6 @@ end
 -- Host only instructions
 if not host:isHost() then return end
 
--- Required scripts
-local itemCheck = require("lib.ItemCheck")
-local s, c = pcall(require, "scripts.ColorProperties")
-if not s then c = {} end
-
 -- Sing keybind
 local singBind   = config:load("AnimSingKeybind") or "key.keyboard.keypad.7"
 local setSingKey = keybinds:newKeybind("Singing Animation"):onPress(function() pings.setAnimSing(not isSing) end):key(singBind)
@@ -300,11 +295,28 @@ function events.TICK()
 	
 end
 
--- Table setup
-local t = {}
+-- Required script
+local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+if not s then return end -- Kills script early if ActionWheel.lua isnt found
 
--- Action
-t.singAct = action_wheel:newAction()
+-- Check for if page already exists
+local pageExists = action_wheel:getPage("Anims")
+
+-- Pages
+local parentPage = action_wheel:getPage("Main")
+local animsPage  = pageExists or action_wheel:newPage("Anims")
+
+-- Actions table setup
+local a = {}
+
+-- Actions
+if not pageExists then
+	a.pageAct = parentPage:newAction()
+		:item(itemCheck("jukebox"))
+		:onLeftClick(function() wheel:descend(animsPage) end)
+end
+
+a.singAct = animsPage:newAction()
 	:item(itemCheck("music_disc_blocks"))
 	:toggleItem(itemCheck("music_disc_cat"))
 	:onToggle(pings.setAnimSing)
@@ -313,19 +325,23 @@ t.singAct = action_wheel:newAction()
 function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
-		t.singAct
+		if a.pageAct then
+			a.pageAct
+				:title(toJson(
+					{text = "Animation Settings", bold = true, color = c.primary}
+				))
+		end
+		
+		a.singAct
 			:title(toJson(
 				{text = "Play Singing animation", bold = true, color = c.primary}
 			))
 			:toggled(isSing)
 		
-		for _, act in pairs(t) do
+		for _, act in pairs(a) do
 			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end
 	
 end
-
--- Returns action
-return t

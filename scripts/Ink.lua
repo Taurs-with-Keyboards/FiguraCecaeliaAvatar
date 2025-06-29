@@ -166,11 +166,8 @@ end
 -- Host only instructions
 if not host:isHost() then return end
 
--- Required scripts
-local lerp      = require("lib.LerpAPI")
-local itemCheck = require("lib.ItemCheck")
-local s, c = pcall(require, "scripts.ColorProperties")
-if not s then c = {} end
+-- Required script
+local lerp = require("lib.LerpAPI")
 
 -- Reenabled parts
 parts.group.Meter:visible(true)
@@ -279,11 +276,20 @@ function events.TICK()
 	
 end
 
--- Table setup
-local t = {}
+-- Required scripts
+local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+if not s then return end -- Kills script early if ActionWheel.lua isnt found
+pcall(require, "scripts.ColorChange") -- Tries to find script, not required
+pcall(require, "scripts.Tail") -- Tries to find script, not required
+
+-- Pages
+local parentPage = action_wheel:getPage("Color") or action_wheel:getPage("Octopus") or action_wheel:getPage("Main")
+
+-- Actions table setup
+local a = {}
 
 -- Action
-t.colorAct = action_wheel:newAction()
+a.colorAct = parentPage:newAction()
 	:item(itemCheck("ink_sac"))
 	:onLeftClick(selectRGB)
 	:onScroll(pickColor)
@@ -292,7 +298,7 @@ t.colorAct = action_wheel:newAction()
 function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then
-		t.colorAct
+		a.colorAct
 			:title(toJson(
 				{
 					"",
@@ -310,13 +316,10 @@ function events.RENDER(delta, context)
 				}
 			))
 		
-		for _, act in pairs(t) do
+		for _, act in pairs(a) do
 			act:hoverColor(c.hover):toggleColor(c.active)
 		end
 		
 	end
 	
 end
-
--- Return actions
-return t
