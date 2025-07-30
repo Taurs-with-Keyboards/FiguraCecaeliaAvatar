@@ -14730,7 +14730,7 @@
 								"3f94b392-f4ac-76da-bcb4-61a1af707f2a",
 								"1130b49f-7301-240b-a920-99114011cc0e",
 								{
-									"name": "MantleArmorLeggings",
+									"name": "MantleArmorOctopus",
 									"origin": [0, 0, 0],
 									"color": 0,
 									"uuid": "38cc68e5-b165-c832-e8b9-93ab5d5cf819",
@@ -14761,7 +14761,7 @@
 										"1dbf9957-0bec-d4bb-2053-91d121a60356",
 										"cacf2dd7-2eb9-b86c-18d1-376b9b3a0980",
 										{
-											"name": "Ten1Seg1ArmorLeggings",
+											"name": "Ten1Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "94cdd716-480f-7cbf-a818-968c72a106b6",
@@ -14791,7 +14791,7 @@
 												"eb3a612a-ff12-a989-567d-fb485d4cff92",
 												"8db2c7a3-098f-9ca5-4102-ae748a158b96",
 												{
-													"name": "Ten1Seg2ArmorLeggings",
+													"name": "Ten1Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "d6ad5ae7-93c3-aa17-ac0b-ec941dac5f61",
@@ -14821,7 +14821,7 @@
 														"863e659f-b0d3-cdf4-ed4b-720172018700",
 														"31d08e92-c3d6-cb59-448a-e04ef053a7a6",
 														{
-															"name": "Ten1Seg3ArmorLeggings",
+															"name": "Ten1Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "ccd6bb5b-525c-b77a-14a0-e6dd651c6729",
@@ -14851,7 +14851,7 @@
 																"76874fe5-518d-a2dc-880a-32269b5b598c",
 																"b322891e-ef4c-7644-4a20-b2a1c050574f",
 																{
-																	"name": "Ten1Seg4ArmorBoot",
+																	"name": "Ten1Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "d19a0efe-7ed7-dfd0-42e5-e4da3a689d75",
@@ -14881,7 +14881,7 @@
 																		"c3d57a92-8219-2ddf-f953-b771fabad1cd",
 																		"bc13d3fa-5459-7dc7-6493-4b258f03ae7b",
 																		{
-																			"name": "Ten1Seg5ArmorBoot",
+																			"name": "Ten1Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "e504913e-58db-b13b-0cb0-00864dfdf77c",
@@ -14911,7 +14911,7 @@
 																				"16c3a1ec-2f3c-32ad-e9e4-2dfbde7a51e7",
 																				"838d3ba5-6d5c-f37b-f4b7-f45bd5c42ba7",
 																				{
-																					"name": "Ten1Seg6ArmorBoot",
+																					"name": "Ten1Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "2b5a83d5-ff0f-085b-9d7d-cb0a8bb659dc",
@@ -14983,7 +14983,7 @@
 										"5b780605-22b3-28cb-4337-52b7f0fc81e5",
 										"609cb932-71e7-7e62-fa83-8fdf181142aa",
 										{
-											"name": "Ten2Seg1ArmorLeggings",
+											"name": "Ten2Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "12b03a47-10fe-e769-0e42-4d17d3c96918",
@@ -15013,7 +15013,7 @@
 												"4db508b6-4dd7-5fb7-a15d-273891023832",
 												"3451ca50-26ab-40fd-1d61-cbb34900eafd",
 												{
-													"name": "Ten2Seg2ArmorLeggings",
+													"name": "Ten2Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "1bb222b2-ccb1-3ddd-d971-ae4f7378a8f7",
@@ -15043,7 +15043,7 @@
 														"744d516c-da13-fbb2-d5f5-b4c72a874969",
 														"6445019b-c496-a875-a7bb-e082784a3cc7",
 														{
-															"name": "Ten2Seg3ArmorLeggnings",
+															"name": "Ten2Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "a31e2f1c-c396-3f05-d92a-bb7909262a72",
@@ -15073,7 +15073,7 @@
 																"1970f405-6385-f6c2-68ca-7ff94027a0a5",
 																"24c9c001-dd7a-6d7c-6923-75199f751273",
 																{
-																	"name": "Ten2Seg4ArmorBoot",
+																	"name": "Ten2Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "d74aa0f5-c65f-646e-74db-49b5b2737b27",
@@ -15103,7 +15103,7 @@
 																		"9d487948-1812-570b-1d2a-e755fb03579d",
 																		"4127608f-cbc6-94de-7eb8-0d8ef0411944",
 																		{
-																			"name": "Ten2Seg5ArmorBoot",
+																			"name": "Ten2Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "09375082-c0e0-440d-7681-9a0d9dcc0ded",
@@ -15133,7 +15133,7 @@
 																				"e15d35db-1b66-8c18-369a-65cb0a376196",
 																				"69dd3d2f-bf27-fadd-f9d7-623683f8c17f",
 																				{
-																					"name": "Ten2Seg6ArmorBoot",
+																					"name": "Ten2Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "dcb109ba-3dc1-a4cd-d9d0-9ee899cb43c2",
@@ -15205,7 +15205,7 @@
 										"5879ab0d-f5ae-1793-0f96-7e418df353b3",
 										"21975e19-074e-b598-e0ae-2b57eebcb07e",
 										{
-											"name": "Ten3Seg1ArmorLeggings",
+											"name": "Ten3Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "1dea765c-9ea2-fe4d-bdc2-2887e1efd458",
@@ -15235,7 +15235,7 @@
 												"0942f2d0-cefe-a0b4-c658-12a166ea91de",
 												"176d549e-54b9-be14-7e14-e7bc2716e43c",
 												{
-													"name": "Ten3Seg2ArmorLeggings",
+													"name": "Ten3Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "453f73e8-9c57-c14c-e15f-98fa5db61507",
@@ -15265,7 +15265,7 @@
 														"51104f5f-aad8-a6c4-90d1-9502ff349d56",
 														"ec132d35-2ac7-1f94-75af-7e5f9f071b25",
 														{
-															"name": "Ten3Seg3ArmorLeggings",
+															"name": "Ten3Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "5055d78c-cad2-f9ae-390c-38179d6b9bf3",
@@ -15295,7 +15295,7 @@
 																"99089f4c-799a-b0ca-376d-dc4a7502c12e",
 																"6874b688-62d5-7341-6eba-2f2a31c9fb9e",
 																{
-																	"name": "Ten3Seg4ArmorBoot",
+																	"name": "Ten3Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "ac5a9671-7fbd-045f-cc22-ea211ed901a1",
@@ -15325,7 +15325,7 @@
 																		"d9ee40fc-af46-95fc-6ba8-aed6513b41af",
 																		"4d14294c-0222-ba8c-2262-dc7e54f50aeb",
 																		{
-																			"name": "Ten3Seg5ArmorBoot",
+																			"name": "Ten3Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "1bbe5c1a-86cf-0866-c78e-c78014aeeae2",
@@ -15355,7 +15355,7 @@
 																				"939c3a02-4795-ac28-c0ad-25bf6fbce127",
 																				"0b154296-2557-f0e4-1ceb-dd4506438a6d",
 																				{
-																					"name": "Ten3Seg6ArmorBoot",
+																					"name": "Ten3Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "d7e75701-bc19-333a-ddc2-000d6738d8de",
@@ -15427,7 +15427,7 @@
 										"e896e7d3-25db-9c84-5b8e-33427e39ac8f",
 										"58792674-5ead-d123-7008-074491538396",
 										{
-											"name": "Ten4Seg1ArmorLeggings",
+											"name": "Ten4Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "f4820f41-6f2d-fc8d-015a-5f109d1a1cde",
@@ -15457,7 +15457,7 @@
 												"e3790d4a-36ab-82ae-91be-3f81fcb3d89d",
 												"5e85e47d-bac8-7f6e-a3cb-3da8072a4d5b",
 												{
-													"name": "Ten4Seg2ArmorLeggings",
+													"name": "Ten4Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "b799ccfa-6b03-c343-8f76-570346806cd6",
@@ -15487,7 +15487,7 @@
 														"54eada1f-73f6-f657-9542-5418e388a66d",
 														"e48a6bc5-ed24-1898-1687-31babfd85eec",
 														{
-															"name": "Ten4Seg3ArmorLeggings",
+															"name": "Ten4Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "2f90eb86-4b71-64f7-2e35-edc293e11dad",
@@ -15517,7 +15517,7 @@
 																"8c60d123-677d-0b4f-afcf-0dfb7d243f51",
 																"98c879a9-3256-ddeb-fc25-ecbbbab312e5",
 																{
-																	"name": "Ten4Seg4ArmorBoot",
+																	"name": "Ten4Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "bf64e812-ffeb-f73e-fb09-f81fde165843",
@@ -15547,7 +15547,7 @@
 																		"20b086cd-8ecc-f674-4d7d-42ae3c536071",
 																		"d66acfb1-2798-5d24-f2b5-285f61f133e1",
 																		{
-																			"name": "Ten4Seg5ArmorBoot",
+																			"name": "Ten4Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "62044920-d675-bbbd-ecda-8866fe887d71",
@@ -15577,7 +15577,7 @@
 																				"13aa6cd7-1fc4-46ff-4d16-7e15a98f574d",
 																				"265130b2-593a-462c-0f4e-6b8d1ec3cf57",
 																				{
-																					"name": "Ten4Seg6ArmorBoot",
+																					"name": "Ten4Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "59cde978-a44e-360e-2c12-06bfe5dcbfa3",
@@ -15649,7 +15649,7 @@
 										"f29229b1-3174-f02c-7b5b-2bcea17db0a0",
 										"d6984f39-5c94-0c1e-2ef7-e18c21a74bdd",
 										{
-											"name": "Ten5Seg1ArmorLeggings",
+											"name": "Ten5Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "506200b7-8b6e-1cb1-6a2f-7ab6d91b4ce3",
@@ -15679,7 +15679,7 @@
 												"58fc639e-c29b-43a5-c591-51014128fddd",
 												"1cb426c1-410f-794f-5fc1-5357853068ed",
 												{
-													"name": "Ten5Seg2ArmorLeggings",
+													"name": "Ten5Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "83016a0d-5bab-73cc-a94a-657e1ff16326",
@@ -15709,7 +15709,7 @@
 														"425a68af-b30d-b6e6-cbe7-73e130909e56",
 														"1d3e20ae-8aab-3bbe-21d5-25a542f6cccd",
 														{
-															"name": "Ten5Seg3ArmorLeggings",
+															"name": "Ten5Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "7f622255-7404-db73-2765-ba00acebbaf6",
@@ -15739,7 +15739,7 @@
 																"fbc3888e-9a30-7134-a3d6-4dca42b46ec4",
 																"6df9378b-61b1-80d5-278f-42b692e6f2fc",
 																{
-																	"name": "Ten5Seg4ArmorBoot",
+																	"name": "Ten5Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "1d07fd4f-11b2-157f-b2f9-e8d48dc67d25",
@@ -15769,7 +15769,7 @@
 																		"2bbc4993-ae99-6abf-3492-98f418122864",
 																		"f46aae26-095d-4174-9c96-935d01811aae",
 																		{
-																			"name": "Ten5Seg5ArmorBoot",
+																			"name": "Ten5Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "59cb9ccb-1b7e-e087-f990-316b036a33f2",
@@ -15799,7 +15799,7 @@
 																				"d4ff0d01-6b74-e3e3-5adf-68f9d51f6e50",
 																				"1e1e4c34-2a81-bef2-d3ae-22f4377f21c1",
 																				{
-																					"name": "Ten5Seg6ArmorBoot",
+																					"name": "Ten5Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "41f67158-fed3-971c-5c1b-f2745785a9fa",
@@ -15871,7 +15871,7 @@
 										"7f1275d0-4d4e-5492-45ff-7ef19d12fe98",
 										"f5729f08-07e9-2fbd-8a22-c73327d0f6ca",
 										{
-											"name": "Ten6Seg1ArmorLeggings",
+											"name": "Ten6Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "99384398-b88e-755b-fa15-ab535350d54c",
@@ -15901,7 +15901,7 @@
 												"f7c448df-94fc-5bdc-1952-2bcfa57257c9",
 												"2ab796c9-9848-16c9-1843-e8714dfd1566",
 												{
-													"name": "Ten6Seg2ArmorLeggings",
+													"name": "Ten6Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "02e59e25-7840-61a3-c041-032305152723",
@@ -15931,7 +15931,7 @@
 														"82a24d6f-1e2b-bbc5-bb9c-28938e69989c",
 														"424a5e15-e6df-d78a-474c-200084baf573",
 														{
-															"name": "Ten6Seg3ArmorLeggings",
+															"name": "Ten6Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "8371408b-dc32-bdf7-5f46-c66042f47c85",
@@ -15961,7 +15961,7 @@
 																"7f60eef4-ded5-5a6c-3a1a-654b5509da3d",
 																"e3221b85-698e-9bec-d88e-d1cda5d6f18e",
 																{
-																	"name": "Ten6Seg4ArmorBoot",
+																	"name": "Ten6Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "8af299ac-ba8e-d5a3-c601-32865ac79722",
@@ -15991,7 +15991,7 @@
 																		"8d4dcfdb-ef10-a6be-3273-75a9348ef4f4",
 																		"9f9960df-762b-80e1-0422-1eb8de65a72a",
 																		{
-																			"name": "Ten6Seg5ArmorBoot",
+																			"name": "Ten6Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "4ccd8710-822c-2bc2-701d-003c5abe3afc",
@@ -16021,7 +16021,7 @@
 																				"1950ffee-a0b7-6d6d-2f40-63d656a31eaf",
 																				"52e58263-b7c9-d4d6-fece-6d78407bba9e",
 																				{
-																					"name": "Ten6Seg6ArmorBoot",
+																					"name": "Ten6Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "37820046-2432-a5eb-3a8b-18731d5e3aed",
@@ -16093,7 +16093,7 @@
 										"d6ca38ce-b560-dc30-3a9a-cfa9bf499cd3",
 										"ffeb0582-22a0-f9d5-27cc-594099cc3f32",
 										{
-											"name": "Ten7Seg1ArmorLeggings",
+											"name": "Ten7Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "0e12cabd-8b17-7b4b-62aa-cf2f39817709",
@@ -16123,7 +16123,7 @@
 												"7e42081e-7a7e-358d-65e4-b71a8208c433",
 												"8200f40d-dbc6-38e8-4d2b-4059ed6af95d",
 												{
-													"name": "Ten7Seg2ArmorLeggings",
+													"name": "Ten7Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "ae4baf97-9377-b0fe-fa6d-d1d63ff06ae2",
@@ -16153,7 +16153,7 @@
 														"aa07e8bb-b955-d656-7f45-cdcc814eca91",
 														"42d0627f-1b31-6f25-5a0d-594b100aeab0",
 														{
-															"name": "Ten7Seg3ArmorLeggings",
+															"name": "Ten7Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "f864c18d-6f1b-d60f-953f-86bcecdef139",
@@ -16183,7 +16183,7 @@
 																"087e2443-6b60-f2da-5703-7fd44d77464a",
 																"eea15f06-3b7f-63d7-91e8-dc8c2e86c6e0",
 																{
-																	"name": "Ten7Seg4ArmorBoot",
+																	"name": "Ten7Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "0b131173-e3df-a9ad-c18d-54eb03d5647b",
@@ -16213,7 +16213,7 @@
 																		"b1fce8db-f277-c0cc-888e-3fcc7983e558",
 																		"8dda1238-6b97-e8d1-bd5a-2590b198d9d3",
 																		{
-																			"name": "Ten7Seg5ArmorBoot",
+																			"name": "Ten7Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "608c2395-792c-a811-067a-783256f458fa",
@@ -16243,7 +16243,7 @@
 																				"f75c623e-eb54-3c31-786c-443aab8f5484",
 																				"04e2c1c9-5a79-137f-b060-60e2f19c38cd",
 																				{
-																					"name": "Ten7Seg6ArmorBoot",
+																					"name": "Ten7Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "cb67b9eb-ecdc-46a7-5b37-712b61bfee62",
@@ -16315,7 +16315,7 @@
 										"97e5dc07-bcf4-3984-69de-9726bc7b6245",
 										"75c6ff99-21dd-af70-f269-542d9a6255f2",
 										{
-											"name": "Ten8Seg1ArmorLeggings",
+											"name": "Ten8Seg1ArmorOctopus",
 											"origin": [0, 0, 0],
 											"color": 0,
 											"uuid": "b656e8f1-363e-e287-f04e-93ad8905a5b5",
@@ -16345,7 +16345,7 @@
 												"d248ba40-163c-1755-7947-910dac7530da",
 												"365d8087-106b-6c63-b173-e57177125d58",
 												{
-													"name": "Ten8Seg2ArmorLeggings",
+													"name": "Ten8Seg2ArmorOctopus",
 													"origin": [0, 0, 0],
 													"color": 0,
 													"uuid": "5138a1d2-42fd-c02d-a487-bf6c8ca8e992",
@@ -16375,7 +16375,7 @@
 														"e71a9703-d086-a491-796b-07ed2303b455",
 														"9aa0b146-0324-cf71-d696-869b85cab31f",
 														{
-															"name": "Ten8Seg3ArmorLeggings",
+															"name": "Ten8Seg3ArmorOctopus",
 															"origin": [0, 0, 0],
 															"color": 0,
 															"uuid": "4d8425cc-b0e4-802d-fbf8-e7643dcf601b",
@@ -16405,7 +16405,7 @@
 																"c9f9f4df-171e-3f5b-6f25-38eff09915d2",
 																"c8d370b6-19d1-dc6a-9d25-0a77d9aa30fc",
 																{
-																	"name": "Ten8Seg4ArmorBoot",
+																	"name": "Ten8Seg4ArmorOctopus",
 																	"origin": [0, 0, 0],
 																	"color": 0,
 																	"uuid": "8daddba9-2e9d-2304-98e9-aa4d0186d6e7",
@@ -16435,7 +16435,7 @@
 																		"3e71ca54-5b75-45cd-d1e9-f44f2ac409eb",
 																		"b86e8376-0410-7008-2976-31c697457ae6",
 																		{
-																			"name": "Ten8Seg5ArmorBoot",
+																			"name": "Ten8Seg5ArmorOctopus",
 																			"origin": [0, 0, 0],
 																			"color": 0,
 																			"uuid": "f8d8250b-6c34-8aa7-a4d2-0715bacfc1e4",
@@ -16465,7 +16465,7 @@
 																				"099f8beb-e5f1-8aab-2820-ae9650b65ced",
 																				"d7308c09-9f24-9b14-cf3c-0b0ba5f466a1",
 																				{
-																					"name": "Ten8Seg6ArmorBoot",
+																					"name": "Ten8Seg6ArmorOctopus",
 																					"origin": [0, 0, 0],
 																					"color": 0,
 																					"uuid": "aa81ed42-3b48-d6f2-fd3b-aab4528591f0",
