@@ -130,7 +130,7 @@ function events.TICK()
 	local crossR      = rightItem.tag and rightItem.tag["Charged"] == 1
 	
 	-- Arm movement overrides
-	local armShouldMove = tailScale.isLarge
+	local armShouldMove = not tailScale.isLarge
 	
 	-- Control targets based on variables
 	leftArmLerp.target  = (armsMove or armShouldMove or leftSwing  or bow or ((crossL or crossR) or (using and usingL ~= "NONE"))) and 1 or 0
