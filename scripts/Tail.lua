@@ -32,7 +32,6 @@ local scale = {
 -- Data sent to other scripts
 local initScale = math.lerp(smallLerp.currPos * scale.small.currPos, 1, scale.tail.currPos)
 local tailData = {
-	scale     = initScale,
 	isLarge   = scale.tail.currPos >= legsForm,
 	isSmall   = initScale > 0.01 and scale.tail.currPos < legsForm,
 	legs      = scale.legs.currPos,
@@ -98,9 +97,6 @@ function events.TICK()
 	-- Control how fast drying occurs
 	local dryRate = player:getItem(1).id == "minecraft:sponge" and 10 or 1
 	
-	-- Zero check
-	local modDryTimer = math.max(dryTimer, 1)
-	
 	-- Timer
 	tailTimer = waterTypes[tailType].check() and dryTimer or waterTypes[tailType].dry and math.clamp(tailTimer - dryRate, 0, dryTimer) or 0
 	
@@ -143,7 +139,6 @@ function events.RENDER(delta, context)
 	parts.group.RightLeg:scale(legsApply)
 	
 	-- Update tail data
-	tailData.scale     = tailApply
 	tailData.isLarge   = scale.tail.currPos >= legsForm
 	tailData.isSmall   = tailApply > 0.01 and scale.tail.currPos < legsForm
 	tailData.legs      = scale.legs.currPos
