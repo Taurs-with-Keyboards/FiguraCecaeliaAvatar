@@ -29,8 +29,8 @@ local scale = {
 
 -- Data sent to other scripts
 local tailData = {
-	isLarge = tailTimer >  (dryTimer * smallSize),
-	isSmall = tailTimer <= (dryTimer * smallSize) and scale.tail.currTick > 0.01,
+	isLarge = tailTimer >  (dryTimer * legsForm),
+	isSmall = tailTimer <= (dryTimer * legsForm) and scale.tail.currTick > 0.01,
 	dry     = dryTimer,
 	scale   = scale.tail.currPos,
 	legs    = scale.legs.currPos
@@ -98,7 +98,7 @@ function events.TICK()
 	
 	-- Targets
 	scale.tail.target = gradual and tailTimer / math.max(dryTimer, 1) or tailTimer ~= 0 and 1 or 0
-	scale.legs.target = tailTimer <= (dryTimer * smallSize) and 1 or 0
+	scale.legs.target = tailTimer <= (dryTimer * legsForm) and 1 or 0
 	
 	-- Modify tail target
 	if small then
@@ -123,8 +123,8 @@ function events.TICK()
 	end
 	
 	-- Update tail data
-	tailData.isLarge = tailTimer >  (dryTimer * smallSize)
-	tailData.isSmall = tailTimer <= (dryTimer * smallSize) and scale.tail.currTick > 0.01
+	tailData.isLarge = tailTimer >  (dryTimer * legsForm)
+	tailData.isSmall = tailTimer <= (dryTimer * legsForm) and scale.tail.currTick > 0.01
 	tailData.dry     = dryTimer
 	
 end
