@@ -20,8 +20,8 @@ v.pitch = 0
 v.yaw   = 0
 v.roll  = 0
 
-v.tail   = 1 - tail.legs
-v.height = 1 - tail.height
+v.tail = 1
+v.legs = 1
 
 -- Variables
 local waterTimer = 0
@@ -203,12 +203,12 @@ function events.RENDER(delta, context)
 	v.yaw      = yaw.currPos
 	v.roll     = roll.currPos
 	
-	v.tail   = 1 - tail.legs
-	v.height = 1 - tail.height
+	v.tail = 1 - tail.scale
+	v.legs = 1 - tail.legs
 	
 	-- Animation blending
 	anims.swim:blend(tail.scale * 0.5 + 0.5)
-	anims.small:blend(tail.smallSize * -0.2 + 1)
+	anims.small:blend(tail.scale * -0.2 + 1)
 	
 	-- Parrot rot offset
 	for _, parrot in pairs(parrots) do

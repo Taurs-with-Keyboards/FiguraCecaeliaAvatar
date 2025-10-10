@@ -22,22 +22,18 @@ local tailTimer = 0
 local wasInAir  = false
 
 -- Lerp variables
-local smallLerp = lerp:new(0.2, smallSize)
 local scale = {
-	tail  = lerp:new(0.2, tailType == 5 and 1 or 0),
-	legs  = lerp:new(0.2, tailType ~= 5 and 1 or 0),
-	small = lerp:new(0.2, small and 1 or 0)
+	tail = lerp:new(0.2, tailType == 5 and 1 or 0),
+	legs = lerp:new(0.2, tailType ~= 5 and 1 or 0)
 }
 
 -- Data sent to other scripts
-local initScale = math.lerp(smallLerp.currPos * scale.small.currPos, 1, scale.tail.currPos)
 local tailData = {
-	isLarge   = scale.tail.currPos >= legsForm,
-	isSmall   = initScale > 0.01 and scale.tail.currPos < legsForm,
-	legs      = scale.legs.currPos,
-	height    = math.max(math.lerp(smallLerp.currPos * scale.small.currPos, 1, scale.tail.currPos), scale.legs.currPos),
-	smallSize = smallLerp.currPos,
-	dry       = dryTimer
+	isLarge = tailTimer >  (dryTimer * smallSize),
+	isSmall = tailTimer <= (dryTimer * smallSize) and scale.tail.currPos > 0.01,
+	dry     = dryTimer,
+	scale   = scale.tail.currPos,
+	legs    = scale.legs.currPos
 }
 
 -- Check if a splash potion is broken near the player
@@ -101,10 +97,13 @@ function events.TICK()
 	tailTimer = waterTypes[tailType].check() and dryTimer or waterTypes[tailType].dry and math.clamp(tailTimer - dryRate, 0, dryTimer) or 0
 	
 	-- Targets
-	smallLerp.target = smallSize
 	scale.tail.target = gradual and tailTimer / math.max(dryTimer, 1) or tailTimer ~= 0 and 1 or 0
-	scale.legs.target = scale.tail.target <= legsForm and 1 or 0
-	scale.small.target = small and 1 or 0
+	scale.legs.target = tailTimer <= (dryTimer * smallSize) and 1 or 0
+	
+	-- Modify tail target
+	if small then
+		scale.tail.target = math.map(scale.tail.target, 0, 1, smallSize, 1)
+	end
 	
 	-- Play sound if conditions are met
 	if fallSound and wasInAir and ground() and scale.legs.target ~= 1 and not player:getVehicle() and not player:isInWater() and not effects.cF then
@@ -128,7 +127,7 @@ end
 function events.RENDER(delta, context)
 	
 	-- Variables
-	local tailApply = math.lerp(smallLerp.currPos * scale.small.currPos, 1, scale.tail.currPos)
+	local tailApply = scale.tail.currPos
 	local legsApply = scale.legs.currPos
 	
 	-- Apply tail
@@ -139,12 +138,11 @@ function events.RENDER(delta, context)
 	parts.group.RightLeg:scale(legsApply)
 	
 	-- Update tail data
-	tailData.isLarge   = scale.tail.currPos >= legsForm
-	tailData.isSmall   = tailApply > 0.01 and scale.tail.currPos < legsForm
-	tailData.legs      = scale.legs.currPos
-	tailData.height    = math.max(tailApply, scale.legs.currPos)
-	tailData.smallSize = smallLerp.currPos
-	tailData.dry       = dryTimer
+	tailData.isLarge = tailTimer >  (dryTimer * smallSize)
+	tailData.isSmall = tailTimer <= (dryTimer * smallSize) and tailApply > 0.01
+	tailData.dry     = dryTimer
+	tailData.scale   = tailApply
+	tailData.legs    = legsApply
 	
 end
 

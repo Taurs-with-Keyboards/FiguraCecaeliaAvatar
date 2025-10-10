@@ -21607,7 +21607,7 @@
 							"data_points": [
 								{
 									"x": "0",
-									"y": "(v.bounce*0.1)-(v.height*10)-2",
+									"y": "(v.bounce*0.1)-(v.tail*10)-2",
 									"z": "0"
 								}
 							],
@@ -28277,6 +28277,26 @@
 								}
 							],
 							"uuid": "52bbb00b-6659-eee8-7bbe-e52624bddc10",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"8be7e069-15ef-ec52-e8a4-c8b3dbe95259": {
+					"name": "Player",
+					"type": "bone",
+					"keyframes": [
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "q(...) +\n-(v.legs*12)\n",
+									"z": "0"
+								}
+							],
+							"uuid": "3a6aa9b3-688b-3790-456a-119fce8a62d4",
 							"time": 0,
 							"color": -1,
 							"interpolation": "linear"
