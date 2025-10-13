@@ -203,8 +203,8 @@ function events.RENDER(delta, context)
 	v.yaw      = yaw.currPos
 	v.roll     = roll.currPos
 	
-	v.tail = 1 - tail.scale
-	v.legs = 1 - tail.legs
+	v.tail = tail.scale
+	v.legs = tail.legs
 	
 	-- Animation blending
 	anims.swim:blend(tail.scale * 0.5 + 0.5)

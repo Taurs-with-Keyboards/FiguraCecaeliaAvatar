@@ -5,7 +5,7 @@
 		"box_uv": false
 	},
 	"visible_box": [1, 1, 0],
-	"variable_placeholders": "v.strength = slider(\"Strength\", 0.05, 1,  2)\nv.pitch    = slider(\"Pitch\",    0.5, -30, 30)\nv.yaw      = slider(\"Yaw\",      1,   -45, 45)\nv.roll     = slider(\"Roll\",     0.5, -30, 30)\nv.headY    = slider(\"HeadY\",    1,   -50, 50)\nv.tail     = toggle(\"Tail\")",
+	"variable_placeholders": "v.strength = slider(\"Strength\", 0.05, 1,  2)\nv.pitch    = slider(\"Pitch\",    0.5, -30, 30)\nv.yaw      = slider(\"Yaw\",      1,   -45, 45)\nv.roll     = slider(\"Roll\",     0.5, -30, 30)\nv.headY    = slider(\"HeadY\",    1,   -50, 50)\nv.tail     = toggle(\"Tail\")\nv.legs     = toggle(\"Legs\")",
 	"variable_placeholder_buttons": [
 		{
 			"type": "slider",
@@ -57,6 +57,12 @@
 			"id": "Tail",
 			"value": 0,
 			"variable": "variable.tail"
+		},
+		{
+			"type": "toggle",
+			"id": "Legs",
+			"value": 0,
+			"variable": "variable.legs"
 		}
 	],
 	"timeline_setups": [],
@@ -21607,7 +21613,7 @@
 							"data_points": [
 								{
 									"x": "0",
-									"y": "(v.bounce*0.1)-(v.tail*10)-2",
+									"y": "(v.bounce*0.1)+(v.tail-1)*10-2",
 									"z": "0"
 								}
 							],
@@ -28292,7 +28298,7 @@
 							"data_points": [
 								{
 									"x": "0",
-									"y": "q(...) +\n-(v.legs*12)\n",
+									"y": "q(...) +\n(v.legs-1)*12\n",
 									"z": "0"
 								}
 							],
@@ -28341,5 +28347,5 @@
 			}
 		}
 	],
-	"animation_variable_placeholders": "v.strength = slider(\"Strength\", 0.05, 1,  2)\nv.pitch    = slider(\"Pitch\",    0.5, -30, 30)\nv.yaw      = slider(\"Yaw\",      1,   -45, 45)\nv.roll     = slider(\"Roll\",     0.5, -30, 30)\nv.headY    = slider(\"HeadY\",    1,   -50, 50)\nv.tail     = toggle(\"Tail\")"
+	"animation_variable_placeholders": "v.strength = slider(\"Strength\", 0.05, 1,  2)\nv.pitch    = slider(\"Pitch\",    0.5, -30, 30)\nv.yaw      = slider(\"Yaw\",      1,   -45, 45)\nv.roll     = slider(\"Roll\",     0.5, -30, 30)\nv.headY    = slider(\"HeadY\",    1,   -50, 50)\nv.tail     = toggle(\"Tail\")\nv.legs     = toggle(\"Legs\")"
 }
