@@ -221,6 +221,12 @@ function events.RENDER(delta, context)
 	parts.group.UpperBody:offsetPivot(crouchPos):pos(crouchPos.xy_ * 2)
 	parts.group.Octopus:pos(crouchPos)
 	
+	-- Spyglass rotations
+	local headRot = vanilla_model.HEAD:getOriginRot()
+	headRot.x = math.clamp(headRot.x, -90, 30)
+	parts.group.Spyglass:offsetRot(headRot)
+		:pos(pose.crouch and vec(0, -4, 0) or nil)
+	
 end
 
 -- GS Blending Setup
@@ -242,16 +248,6 @@ for _, blend in ipairs(blendAnims) do
 	if blend.anim ~= nil then
 		blend.anim:blendTime(table.unpack(blend.ticks)):blendCurve("easeOutQuad")
 	end
-end
-
--- Fixing spyglass jank
-function events.RENDER(delta, context)
-	
-	local rot = vanilla_model.HEAD:getOriginRot()
-	rot.x = math.clamp(rot.x, -90, 30)
-	parts.group.Spyglass:offsetRot(rot)
-		:pos(pose.crouch and vec(0, -4, 0) or nil)
-	
 end
 
 -- Singing anim toggle
