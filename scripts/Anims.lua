@@ -48,10 +48,10 @@ local function calculateParentRot(m)
 end
 
 -- Lerps
-local strength = lerp:new(1)
-local pitch = lerp:new(0.1)
-local yaw   = lerp:new(1)
-local roll  = lerp:new(0.1)
+local strength = lerp:new(1, 1)
+local pitch = lerp:new(0, 0.1)
+local yaw   = lerp:new(0, 1)
+local roll  = lerp:new(0, 0.1)
 
 -- Spawns notes around a model part
 local function notes(part, blocks)

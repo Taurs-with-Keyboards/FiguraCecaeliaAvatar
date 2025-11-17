@@ -182,8 +182,8 @@ function events.TICK()
 end
 
 -- Lerp tables
-local fadeLerp = lerp:new(0.2, 0)
-local barLerp  = lerp:new(0.2, 0)
+local fadeLerp = lerp:new()
+local barLerp  = lerp:new(0, 0.2, 0.2)
 
 -- Variables
 local pMaxInk = maxInk
@@ -215,6 +215,11 @@ function events.TICK()
 	
 	-- Lerp bar scale
 	barLerp.target = fadeLerp.target * (maxInk / 20)
+	
+	-- Bounce bar back if below 0
+	if barLerp.currTick < 0 then
+		barLerp:bounce(0)
+	end
 	
 	-- Store previous variables
 	pMaxInk   = maxInk

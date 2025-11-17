@@ -25,8 +25,8 @@ local octopusTextures = {
 }
 
 -- Lerps
-local colorLerp = lerp:new(0.2, vec(1, 1, 1))
-local typeLerp  = lerp:new(0.2, (camo or rainbow) and 1 or 0)
+local colorLerp = lerp:new(vec(1, 1, 1))
+local typeLerp  = lerp:new((camo or rainbow) and 1 or 0)
 
 -- Apply color
 local function applyColor(tex, color)
