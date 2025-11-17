@@ -76,9 +76,19 @@ function events.TICK()
 	
 	if active and largeTail and not cooldown then
 		
-		-- How much ink is used each tick, decreasing based on how much is left
-		local calc = math.ceil(remainingInk / 50)
-		shootInk(calc)
+		-- Check if there is ink
+		if maxInk ~= 0 then
+			
+			-- How much ink is used each tick, decreasing based on how much is left
+			local calc = math.ceil(remainingInk / 50)
+			shootInk(calc)
+			
+		else
+			
+			-- Inform user that they are too low level to shoot ink
+			host:setActionbar("You have too low experience to shoot ink!")
+			
+		end
 		
 	elseif cooldownTimer == 0 then
 		
