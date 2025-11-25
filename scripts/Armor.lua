@@ -40,77 +40,34 @@ octopusArmor.Materials.netherite
 	:setTexture(textures["textures.armor.netheriteArmor"] or textures["Cecaelia.netheriteArmor"])
 
 -- Trims
--- Bolt
-octopusArmor.TrimPatterns.bolt
-	:setTexture(textures["textures.armor.trims.boltTrim"] or textures["Cecaelia.boltTrim"])
+local trims = {
+	"bolt",
+	"coast",
+	"dune",
+	"eye",
+	"flow",
+	"host",
+	"raiser",
+	"rib",
+	"sentry",
+	"shaper",
+	"silence",
+	"snout",
+	"spire",
+	"tide",
+	"vex",
+	"ward",
+	"wayfinder",
+	"wild"
+}
 
--- Coast
-octopusArmor.TrimPatterns.coast
-	:setTexture(textures["textures.armor.trims.coastTrim"] or textures["Cecaelia.coastTrim"])
-
--- Dune
-octopusArmor.TrimPatterns.dune
-	:setTexture(textures["textures.armor.trims.duneTrim"] or textures["Cecaelia.duneTrim"])
-
--- Eye
-octopusArmor.TrimPatterns.eye
-	:setTexture(textures["textures.armor.trims.eyeTrim"] or textures["Cecaelia.eyeTrim"])
-
--- Flow
-octopusArmor.TrimPatterns.flow
-	:setTexture(textures["textures.armor.trims.flowTrim"] or textures["Cecaelia.flowTrim"])
-
--- Host
-octopusArmor.TrimPatterns.host
-	:setTexture(textures["textures.armor.trims.hostTrim"] or textures["Cecaelia.hostTrim"])
-
--- Raiser
-octopusArmor.TrimPatterns.raiser
-	:setTexture(textures["textures.armor.trims.raiserTrim"] or textures["Cecaelia.raiserTrim"])
-
--- Rib
-octopusArmor.TrimPatterns.rib
-	:setTexture(textures["textures.armor.trims.ribTrim"] or textures["Cecaelia.ribTrim"])
-
--- Sentry
-octopusArmor.TrimPatterns.sentry
-	:setTexture(textures["textures.armor.trims.sentryTrim"] or textures["Cecaelia.sentryTrim"])
-
--- Shaper
-octopusArmor.TrimPatterns.shaper
-	:setTexture(textures["textures.armor.trims.shaperTrim"] or textures["Cecaelia.shaperTrim"])
-
--- Silence
-octopusArmor.TrimPatterns.silence
-	:setTexture(textures["textures.armor.trims.silenceTrim"] or textures["Cecaelia.silenceTrim"])
-
--- Snout
-octopusArmor.TrimPatterns.snout
-	:setTexture(textures["textures.armor.trims.snoutTrim"] or textures["Cecaelia.snoutTrim"])
-
--- Spire
-octopusArmor.TrimPatterns.spire
-	:setTexture(textures["textures.armor.trims.spireTrim"] or textures["Cecaelia.spireTrim"])
-
--- Tide
-octopusArmor.TrimPatterns.tide
-	:setTexture(textures["textures.armor.trims.tideTrim"] or textures["Cecaelia.tideTrim"])
-
--- Vex
-octopusArmor.TrimPatterns.vex
-	:setTexture(textures["textures.armor.trims.vexTrim"] or textures["Cecaelia.vexTrim"])
-
--- Ward
-octopusArmor.TrimPatterns.ward
-	:setTexture(textures["textures.armor.trims.wardTrim"] or textures["Cecaelia.wardTrim"])
-
--- Wayfinder
-octopusArmor.TrimPatterns.wayfinder
-	:setTexture(textures["textures.armor.trims.wayfinderTrim"] or textures["Cecaelia.wayfinderTrim"])
-
--- Wild
-octopusArmor.TrimPatterns.wild
-	:setTexture(textures["textures.armor.trims.wildTrim"] or textures["Cecaelia.wildTrim"])
+-- Apply trims
+for _, trim in ipairs(trims) do
+	local tex = textures["textures.armor.trims."..trim.."Trim"] or textures["Cecaelia."..trim.."Trim"] or false
+	if tex then
+		octopusArmor.TrimPatterns[trim]:setTexture(tex)
+	end
+end
 
 -- Config setup
 config:name("Cecaelia")
