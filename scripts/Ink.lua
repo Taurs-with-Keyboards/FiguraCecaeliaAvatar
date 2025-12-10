@@ -167,9 +167,9 @@ local function selectRGB()
 end
 
 -- Sync variables
-function pings.syncInk(a)
+function pings.syncInk(...)
 	
-	inkColor = a
+	inkColor = ...
 	
 end
 

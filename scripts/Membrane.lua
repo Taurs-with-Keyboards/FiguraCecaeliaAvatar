@@ -71,9 +71,9 @@ function pings.setMembraneToggle(boolean)
 end
 
 -- Sync variables
-function pings.syncMembrane(a)
+function pings.syncMembrane(...)
 	
-	toggle = a
+	toggle = ...
 	
 end
 

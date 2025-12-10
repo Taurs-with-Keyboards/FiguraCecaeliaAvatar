@@ -310,15 +310,23 @@ function pings.setAnimsArmsMove(boolean)
 end
 
 -- Sync variables
-function pings.syncAnims(a, b)
+function pings.syncAnims(...)
 	
-	isSing   = a
-	armsMove = b
+	isSing, armsMove = ...
 	
 end
 
 -- Host only instructions
 if not host:isHost() then return end
+
+-- Sync on tick
+function events.TICK()
+	
+	if world.getTime() % 200 == 0 then
+		pings.syncAnims(isSing, armsMove)
+	end
+	
+end
 
 -- Sing keybind
 local singBind   = config:load("AnimSingKeybind") or "key.keyboard.keypad.7"
@@ -331,15 +339,6 @@ function events.TICK()
 	if singKey ~= singBind then
 		singBind = singKey
 		config:save("AnimSingKeybind", singKey)
-	end
-	
-end
-
--- Sync on tick
-function events.TICK()
-	
-	if world.getTime() % 200 == 0 then
-		pings.syncAnims(isSing, armsMove)
 	end
 	
 end

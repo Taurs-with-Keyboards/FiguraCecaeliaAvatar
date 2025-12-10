@@ -141,10 +141,9 @@ function pings.setColorType(type)
 end
 
 -- Sync variables
-function pings.syncColor(a, b)
+function pings.syncColor(...)
 	
-	camo    = a
-	rainbow = b
+	camo, rainbow = ...
 	
 end
 

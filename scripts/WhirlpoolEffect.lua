@@ -56,10 +56,9 @@ function pings.setWhirlpoolDolphinsGrace(boolean)
 end
 
 -- Sync variables
-function pings.syncWhirlpool(a, b)
+function pings.syncWhirlpool(...)
 	
-	bubbles        = a
-	dolphinsGrace  = b
+	bubbles, dolphinsGrace = ...
 	
 end
 

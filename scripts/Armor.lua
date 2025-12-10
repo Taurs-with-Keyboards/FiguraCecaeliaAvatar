@@ -215,13 +215,9 @@ function pings.setArmorOctopus(boolean)
 end
 
 -- Sync variables
-function pings.syncArmor(a, b, c, d, e)
+function pings.syncArmor(...)
 	
-	helmet     = a
-	chestplate = b
-	leggings   = c
-	boots      = d
-	octopus    = e
+	helmet, chestplate, leggings, boots, octopus = ...
 	
 end
 
