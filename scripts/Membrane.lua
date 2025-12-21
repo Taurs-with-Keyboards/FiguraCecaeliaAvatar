@@ -10,7 +10,7 @@ if avatar:getPermissionLevel() ~= "MAX" then
 	for _, part in ipairs(membraneParts) do
 		part:visible(false)
 	end
-	return {}
+	return
 end
 
 -- Config setup
