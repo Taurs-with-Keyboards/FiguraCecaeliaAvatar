@@ -90,7 +90,7 @@ function events.TICK()
 end
 
 -- Required scripts
-local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+local s, wheel, c = pcall(require, "scripts.ActionWheel")
 if not s then return end -- Kills script early if ActionWheel.lua isnt found
 pcall(require, "scripts.Tail") -- Tries to find script, not required
 
@@ -102,8 +102,8 @@ local a = {}
 
 -- Action
 a.toggleAct = parentPage:newAction()
-	:item(itemCheck("red_carpet"))
-	:toggleItem(itemCheck("green_carpet"))
+	:item("red_carpet")
+	:toggleItem("green_carpet")
 	:onToggle(pings.setMembraneToggle)
 	:toggled(toggle)
 

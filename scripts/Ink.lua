@@ -292,7 +292,7 @@ function events.TICK()
 end
 
 -- Required scripts
-local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+local s, wheel, c = pcall(require, "scripts.ActionWheel")
 if not s then return end -- Kills script early if ActionWheel.lua isnt found
 pcall(require, "scripts.ColorChange") -- Tries to find script, not required
 pcall(require, "scripts.Tail") -- Tries to find script, not required
@@ -305,7 +305,7 @@ local a = {}
 
 -- Action
 a.colorAct = parentPage:newAction()
-	:item(itemCheck("ink_sac"))
+	:item("ink_sac")
 	:onLeftClick(selectRGB)
 	:onScroll(pickColor)
 

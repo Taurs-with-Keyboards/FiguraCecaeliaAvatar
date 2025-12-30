@@ -160,7 +160,7 @@ function events.TICK()
 end
 
 -- Required scripts
-local s, wheel, itemCheck, c = pcall(require, "scripts.ActionWheel")
+local s, wheel, c = pcall(require, "scripts.ActionWheel")
 if not s then return end -- Kills script early if ActionWheel.lua isnt found
 pcall(require, "scripts.Tail") -- Tries to find script, not required
 
@@ -202,15 +202,15 @@ local a = {}
 
 -- Actions
 a.pageAct = parentPage:newAction()
-	:item(itemCheck("brewing_stand"))
+	:item("brewing_stand")
 	:onLeftClick(function() wheel:descend(colorPage) end)
 
 a.camoAct = colorPage:newAction()
-	:item(itemCheck("glass_bottle"))
+	:item("glass_bottle")
 	:onToggle(function(apply) pings.setColorType(apply and 1) end)
 
 a.rainbowAct = colorPage:newAction()
-	:item(itemCheck("glass_bottle"))
+	:item("glass_bottle")
 	:onToggle(function(apply) pings.setColorType(apply and 2) end)
 
 -- Update actions
@@ -230,7 +230,7 @@ function events.RENDER(delta, context)
 					{text = "Toggles changing your octopus color to match your surroundings.", color = c.secondary}
 				}
 			))
-			:toggleItem(itemCheck("splash_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}"))
+			:toggleItem("splash_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}")
 			:toggled(camo)
 		
 		a.rainbowAct
@@ -241,7 +241,7 @@ function events.RENDER(delta, context)
 					{text = "Toggles on hue-shifting creating a rainbow effect.", color = c.secondary}
 				}
 			))
-			:toggleItem(itemCheck("lingering_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}"))
+			:toggleItem("lingering_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}")
 			:toggled(rainbow)
 		
 		for _, act in pairs(a) do
