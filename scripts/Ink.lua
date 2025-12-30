@@ -247,7 +247,7 @@ function events.RENDER(delta, context)
 	
 	-- Position Gui parts, set scale, opacity, and color
 	parts.group.Meter
-		:pos(-screen.x * 0.975, -screen.y * 0.5)
+		:pos(-screen.x + 25, -screen.y * 0.5)
 		:scale(2.5)
 		:opacity(fadeLerp.currPos)
 		:color(1, redBar, redBar)
