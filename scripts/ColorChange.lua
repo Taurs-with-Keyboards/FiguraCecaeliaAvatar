@@ -1,10 +1,10 @@
--- Required script
+-- Required scripts
+local sync = require("lib.LetThatSyncFig")
 local lerp = require("lib.LerpAPI")
 
--- Config setup
-config:name("Cecaelia")
-local camo    = config:load("ColorCamo") or false
-local rainbow = config:load("ColorRainbow") or false
+-- Synced variables setup
+local camo    = sync.add(config:load("ColorCamo"), false)
+local rainbow = sync.add(config:load("ColorRainbow"), false)
 
 -- Variables
 local groundTimer = 0
@@ -26,7 +26,7 @@ local octopusTextures = {
 
 -- Lerps
 local colorLerp = lerp:new(vec(1, 1, 1))
-local typeLerp  = lerp:new((camo or rainbow) and 1 or 0)
+local typeLerp  = lerp:new((sync[camo] or sync[rainbow]) and 1 or 0)
 
 -- Apply color
 local function applyColor(tex, color)
@@ -40,7 +40,7 @@ end
 
 function events.TICK()
 	
-	if camo then
+	if sync[camo] then
 		
 		-- Variables
 		local pos    = player:getPos()
@@ -97,7 +97,7 @@ function events.TICK()
 			
 		end
 		
-	elseif rainbow then
+	elseif sync[rainbow] then
 		
 		-- Set to RGB
 		local calcColor = world.getTime() % 360 / 360
@@ -132,32 +132,16 @@ end
 -- Color type toggle
 function pings.setColorType(type)
 	
-	camo    = type == 1
-	rainbow = type == 2
+	sync[camo]    = type == 1
+	sync[rainbow] = type == 2
 	
-	config:save("ColorCamo", camo)
-	config:save("ColorRainbow", rainbow)
-	
-end
-
--- Sync variables
-function pings.syncColor(...)
-	
-	camo, rainbow = ...
+	config:save("ColorCamo", sync[camo])
+	config:save("ColorRainbow", sync[rainbow])
 	
 end
 
 -- Host only instructions
 if not host:isHost() then return end
-
--- Sync on tick
-function events.TICK()
-	
-	if world.getTime() % 200 == 0 then
-		pings.syncColor(camo, rainbow)
-	end
-	
-end
 
 -- Required scripts
 local s, wheel, c = pcall(require, "scripts.ActionWheel")
@@ -231,7 +215,7 @@ function events.RENDER(delta, context)
 				}
 			))
 			:toggleItem("splash_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}")
-			:toggled(camo)
+			:toggled(sync[camo])
 		
 		a.rainbowAct
 			:title(toJson(
@@ -242,7 +226,7 @@ function events.RENDER(delta, context)
 				}
 			))
 			:toggleItem("lingering_potion{CustomPotionColor:" .. tostring(vectors.rgbToInt(colorLerp.currPos)) .. "}")
-			:toggled(rainbow)
+			:toggled(sync[rainbow])
 		
 		for _, act in pairs(a) do
 			act:hoverColor(c.hover):toggleColor(c.active)

@@ -1,20 +1,19 @@
 -- Required scripts
 local parts   = require("lib.PartsAPI")
+local sync    = require("lib.LetThatSyncFig")
 local effects = require("scripts.SyncedVariables")
 local pose    = require("scripts.Posing")
 
--- Config setup
-config:name("Cecaelia")
-local bubbles       = config:load("WhirlpoolBubbles")
-local dolphinsGrace = config:load("WhirlpoolDolphinsGrace") or false
-if bubbles == nil then bubbles = true end
+-- Synced variables setup
+local bubbles       = sync.add(config:load("WhirlpoolBubbles"), true)
+local dolphinsGrace = sync.add(config:load("WhirlpoolDolphinsGrace"), false)
 
 -- Bubble spawner locations
 local whirlpoolParts = parts:createTable(function(part) return part:getName():find("Bubble") end)
 
 function events.TICK()
 	
-	if dolphinsGrace and not effects.dG then return end
+	if sync[dolphinsGrace] and not effects.dG then return end
 	
 	if avatar:getPermissionLevel() ~= "MAX" then
 		
@@ -23,7 +22,7 @@ function events.TICK()
 		
 	end
 	
-	if pose.swim and bubbles and player:isInWater() then
+	if pose.swim and sync[bubbles] and player:isInWater() then
 		for _, part in ipairs(whirlpoolParts) do
 			particles["bubble"]
 				:pos(part:partToWorldMatrix():apply())
@@ -36,9 +35,9 @@ end
 -- Bubbles toggle
 function pings.setWhirlpoolBubbles(boolean)
 	
-	bubbles = boolean
-	config:save("WhirlpoolBubbles", bubbles)
-	if host:isHost() and player:isLoaded() and bubbles then
+	sync[bubbles] = boolean
+	config:save("WhirlpoolBubbles", sync[bubbles])
+	if host:isHost() and player:isLoaded() and sync[bubbles] then
 		sounds:playSound("block.bubble_column.upwards_inside", player:getPos(), 0.35)
 	end
 	
@@ -47,32 +46,16 @@ end
 -- Dolphins Grace toggle
 function pings.setWhirlpoolDolphinsGrace(boolean)
 	
-	dolphinsGrace = boolean
-	config:save("WhirlpoolDolphinsGrace", dolphinsGrace)
-	if host:isHost() and player:isLoaded() and dolphinsGrace then
+	sync[dolphinsGrace] = boolean
+	config:save("WhirlpoolDolphinsGrace", sync[dolphinsGrace])
+	if host:isHost() and player:isLoaded() and sync[dolphinsGrace] then
 		sounds:playSound("entity.dolphin.ambient", player:getPos(), 0.35)
 	end
 	
 end
 
--- Sync variables
-function pings.syncWhirlpool(...)
-	
-	bubbles, dolphinsGrace = ...
-	
-end
-
 -- Host only instructions
 if not host:isHost() then return end
-
--- Sync on tick
-function events.TICK()
-	
-	if world.getTime() % 200 == 0 then
-		pings.syncWhirlpool(bubbles, dolphinsGrace)
-	end
-	
-end
 
 -- Required scripts
 local s, wheel, c = pcall(require, "scripts.ActionWheel")
@@ -95,13 +78,13 @@ a.bubbleAct = whirlpoolPage:newAction()
 	:item("soul_sand")
 	:toggleItem("magma_block")
 	:onToggle(pings.setWhirlpoolBubbles)
-	:toggled(bubbles)
+	:toggled(sync[bubbles])
 
 a.dolphinsGraceAct = whirlpoolPage:newAction()
 	:item("egg")
 	:toggleItem("dolphin_spawn_egg")
 	:onToggle(pings.setWhirlpoolDolphinsGrace)
-	:toggled(dolphinsGrace)
+	:toggled(sync[dolphinsGrace])
 
 -- Update actions
 function events.RENDER(delta, context)

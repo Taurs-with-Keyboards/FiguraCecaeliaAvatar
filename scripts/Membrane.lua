@@ -1,5 +1,6 @@
 -- Required scripts
 local parts    = require("lib.PartsAPI")
+local sync     = require("lib.LetThatSyncFig")
 local membrane = require("lib.MembraneAPI")
 
 -- Membrane parts
@@ -13,9 +14,8 @@ if avatar:getPermissionLevel() ~= "MAX" then
 	return
 end
 
--- Config setup
-config:name("Cecaelia")
-local toggle = config:load("MembraneToggle") or false
+-- Synced variables setup
+local toggle = sync.add(config:load("MembraneToggle"), false)
 
 -- Variables
 local nTen = 8
@@ -54,7 +54,7 @@ function events.RENDER(delta, context)
 	
 	-- Visibility
 	for _, part in ipairs(membraneParts) do
-		part:visible(toggle)
+		part:visible(sync[toggle])
 	end
 	
 end
@@ -62,32 +62,16 @@ end
 -- Membrane toggle
 function pings.setMembraneToggle(boolean)
 	
-	toggle = boolean
-	config:save("MembraneToggle", toggle)
+	sync[toggle] = boolean
+	config:save("MembraneToggle", sync[toggle])
 	if player:isLoaded() then
 		sounds:playSound("entity.phantom.flap", player:getPos())
 	end
 	
 end
 
--- Sync variables
-function pings.syncMembrane(...)
-	
-	toggle = ...
-	
-end
-
 -- Host only instructions
 if not host:isHost() then return end
-
--- Sync on tick
-function events.TICK()
-	
-	if world.getTime() % 200 == 0 then
-		pings.syncMembrane(toggle)
-	end
-	
-end
 
 -- Required scripts
 local s, wheel, c = pcall(require, "scripts.ActionWheel")
@@ -105,7 +89,7 @@ a.toggleAct = parentPage:newAction()
 	:item("red_carpet")
 	:toggleItem("green_carpet")
 	:onToggle(pings.setMembraneToggle)
-	:toggled(toggle)
+	:toggled(sync[toggle])
 
 -- Update action
 function events.RENDER(delta, context)
