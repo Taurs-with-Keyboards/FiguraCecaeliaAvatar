@@ -12,12 +12,12 @@ local effects = require("scripts.SyncedVariables")
 -- Animations setup
 local anims = animations.Cecaelia
 
--- Table setup
-v = {}
-
 -- Synced variables setup
 local armsMove = sync.add(config:load("ArmsMove"), false)
 local isSing = sync.add(false)
+
+-- Table setup
+v = {}
 
 -- Animation variables
 v.strength = 1
@@ -351,7 +351,7 @@ a.armsAct = animsPage:newAction()
 	:onToggle(pings.setAnimsArmsMove)
 	:toggled(sync[armsMove])
 
--- Update action
+-- Update actions
 function events.RENDER(delta, context)
 	
 	if action_wheel:isEnabled() then

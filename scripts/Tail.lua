@@ -368,7 +368,6 @@ function events.RENDER(delta, context)
 				{text = "Drying Settings", bold = true, color = c.primary}
 			))
 		
-		
 		-- Timers
 		local timers = {
 			set  = sync[dryTimer] / 20,
@@ -401,7 +400,8 @@ function events.RENDER(delta, context)
 		
 		a.legsAct
 			:title(toJson(
-					{"",
+				{
+					"",
 					{text = "Set Legs Threshold\n\n", bold = true, color = c.primary},
 					{text = "Scroll to adjust the threshold for when the legs should form.\n\n", color = c.secondary},
 					{text = "Legs threshold:\n", bold = true, color = c.secondary},
