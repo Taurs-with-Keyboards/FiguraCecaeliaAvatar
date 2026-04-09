@@ -1,9 +1,11 @@
 {
 	"meta": {
 		"format_version": "5.0",
-		"model_format": "figura",
+		"model_format": "free",
 		"box_uv": false
 	},
+	"name": "Cecaelia",
+	"model_identifier": "",
 	"visible_box": [1, 1, 0],
 	"variable_placeholders": "v.strength = slider(\"Strength\", 0.05, 1,  2)\nv.pitch    = slider(\"Pitch\",    0.5, -30, 30)\nv.yaw      = slider(\"Yaw\",      1,   -45, 45)\nv.roll     = slider(\"Roll\",     0.5, -30, 30)\nv.headY    = slider(\"HeadY\",    1,   -50, 50)\nv.tail     = toggle(\"Tail\")\nv.legs     = toggle(\"Legs\")",
 	"multi_file_ruleset": "",
@@ -20241,6 +20243,7 @@
 		{
 			"uuid": "2534ff38-5789-4704-b1f0-fe97c363afc6",
 			"name": "VanillaSkin",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20279,6 +20282,7 @@
 		{
 			"uuid": "4c4ae716-51e2-42e0-aae8-e6dbcca6046a",
 			"name": "GlowParts",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20435,6 +20439,7 @@
 		{
 			"uuid": "ebd64674-f760-19d4-58b6-2a0b11e62f2a",
 			"name": "MembraneParts",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20493,6 +20498,7 @@
 		{
 			"uuid": "dee556d0-578c-dcab-5562-cf6b749b4f63",
 			"name": "HatLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20502,6 +20508,7 @@
 		{
 			"uuid": "547a9038-cef6-132b-ba2c-e7af32fe181e",
 			"name": "JacketLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20511,6 +20518,7 @@
 		{
 			"uuid": "987658c1-cac2-f82e-ecb0-f9d99a022d1e",
 			"name": "LeftSleeveLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20525,6 +20533,7 @@
 		{
 			"uuid": "550b2468-b09e-4a8c-20cd-24be275132b4",
 			"name": "RightSleeveLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20539,6 +20548,7 @@
 		{
 			"uuid": "50b875f9-9f84-bb69-144c-b71fe8e5bc05",
 			"name": "LeftPantsLegLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20548,6 +20558,7 @@
 		{
 			"uuid": "9707aea1-546e-5abb-6e32-aa4ba308b0e4",
 			"name": "RightPantsLegLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20557,6 +20568,7 @@
 		{
 			"uuid": "66037aea-4570-7cdb-5fb0-41b99ef63770",
 			"name": "TailLayer",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20616,6 +20628,7 @@
 		{
 			"uuid": "3bf648e9-7689-89fb-c543-1a5558763684",
 			"name": "ArmorHelmet",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20625,6 +20638,7 @@
 		{
 			"uuid": "ad034a0f-63ac-4647-b34b-63da6efd18d7",
 			"name": "ArmorChestplate",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20640,6 +20654,7 @@
 		{
 			"uuid": "d4d0b9ec-434a-c4c0-a7a1-e89f2ebf46f5",
 			"name": "ArmorLeggings",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20649,6 +20664,7 @@
 		{
 			"uuid": "fad24b99-fe64-f40c-69a5-659fed30aeff",
 			"name": "ArmorBoots",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
@@ -20658,6 +20674,7 @@
 		{
 			"uuid": "54d55388-692e-6764-eeeb-3b368bb677d8",
 			"name": "ArmorOctopus",
+			"model_identifier": "",
 			"scope": 0,
 			"saved": true,
 			"export_codec": "",
