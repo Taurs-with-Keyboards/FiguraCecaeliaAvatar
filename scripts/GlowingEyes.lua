@@ -5,6 +5,9 @@ local lerp    = require("lib.LerpAPI")
 local origins = require("lib.OriginsAPI")
 local effects = require("scripts.SyncedVariables")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variables setup
 local toggle      = sync.new("EyesToggle", false):config()
 local power       = sync.new("EyesPower", false):config()
@@ -12,7 +15,7 @@ local nightVision = sync.new("EyesNightVision", false):config()
 local water       = sync.new("EyesWater", false):config()
 
 -- Glowing parts
-local glowingParts = parts:createTable(function(part) return part:getName():find("_[eE]ye[gG]low") end)
+local glowingParts = cecaelia:createGroup(function(part) return part:getName():find("_[eE]ye[gG]low") end)
 
 -- Lerp eyes table
 local eyes = lerp.new(toggle.curr and 1 or 0)
@@ -56,17 +59,15 @@ function events.RENDER(delta, context)
 	
 	-- Apply
 	local renderType = context == "RENDER" and "EMISSIVE" or "EYES"
-	for _, part in ipairs(glowingParts) do
-		part
-			:secondaryColor(eyes.currPos)
-			:secondaryRenderType(renderType)
-	end
+	glowingParts
+		:secondaryColor(eyes.currPos)
+		:secondaryRenderType(renderType)
 	
 end
 
 -- Apply sound function
-local toggleSound = toggle:addFunc(function()
-	if player:isLoaded() and toggle.curr then
+local toggleSound = toggle:addFuncs(function(self)
+	if player:isLoaded() and self.curr then
 		sounds:playSound("entity.glow_squid.ambient", player:getPos(), 0.75)
 	end
 end)
@@ -75,32 +76,31 @@ end)
 if not host:isHost() then return end
 
 -- Apply sound functions
-local powerSound = power:addFunc(function()
-	if player:isLoaded() and power.curr then
+local powerSound = power:addFuncs(function(self)
+	if player:isLoaded() and self.curr then
 		sounds:playSound("entity.puffer_fish.flop", player:getPos())
 	end
 end)
-local nightVisionSound = nightVision:addFunc(function()
-	if player:isLoaded() and nightVision.curr then
+local nightVisionSound = nightVision:addFuncs(function(self)
+	if player:isLoaded() and self.curr then
 		sounds:playSound("entity.generic.drink", player:getPos(), 0.35)
 	end
 end)
-local waterSound = water:addFunc(function()
-	if player:isLoaded() and water.curr then
+local waterSound = water:addFuncs(function(self)
+	if player:isLoaded() and self.curr then
 		sounds:playSound("ambient.underwater.enter", player:getPos(), 0.35)
 	end
 end)
 
--- Required script
-local keybound = require("lib.Keybound")
-
 -- Setup keybind
-local toggleKeybind = keybound.new(
-	keybinds
-		:newKeybind("Glowing Eyes Toggle", "key.keyboard.keypad.4")
-		:onPress(function() toggle:update(not toggle.curr) end),
-	"EyesToggleKeybind"
-)
+local keyboundSuccess = pcall(require, "lib.Keybound")
+if keyboundSuccess then
+	local toggleKeybind = keybinds:newKeybind("Glowing Eyes Toggle", "key.keyboard.keypad.4")
+		:config("EyesToggleKeybind")
+		:onPress(function()
+			toggle:update(not toggle.curr)
+		end)
+end
 
 -- Required scripts
 local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")

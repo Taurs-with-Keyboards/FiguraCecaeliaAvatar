@@ -3,9 +3,12 @@ local parts = require("lib.PartsAPI")
 local sync  = require("lib.LetThatSyncFig")
 local tail  = require("scripts.Tail")
 
--- Disables code if script cannot find `parts.group.Ink` or related groups
-local inkPart = table.unpack(parts:createTable(function(part) return part:getName():find("Ink") end, 1))
-if not inkPart then return {} end
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
+-- Stop script if ink group could not be found
+local inkPart = cecaelia.outliner.Ink
+if not inkPart then return end
 
 -- Synced variables setup
 local active   = sync.new("InkActive", false)
@@ -140,23 +143,22 @@ end
 -- Host only instructions
 if not host:isHost() then return end
 
--- Required script
-local keybound = require("lib.Keybound")
-
 -- Setup keybind
-local inkKeybind = keybound.new(
-	keybinds
-		:newKeybind("Ink", "key.keyboard.i")
-		:onPress(function() active:update(true) end)
-		:onRelease(function() active:update(false) end),
-	"InkKeybind"
-)
+require("lib.Keybound")
+local inkKeybind = keybinds:newKeybind("Ink", "key.keyboard.i")
+	:config("InkKeybind")
+	:onPress(function()
+		active:update(true)
+	end)
+	:onRelease(function()
+		active:update(false)
+	end)
 
 -- Required script
 local lerp = require("lib.LerpAPI")
 
 -- Reenabled parts
-parts.group.Meter:visible(true)
+cecaelia.outliner.Meter:visible(true)
 
 -- Lerp tables
 local fadeLerp = lerp.new()
@@ -210,30 +212,30 @@ function events.RENDER(delta, context)
 	local redBar = math.clamp(inkLeft / 0.5, 0, 1) * 0.5 + 0.5
 	
 	-- Position Gui parts, set scale, opacity, and color
-	parts.group.Meter
+	cecaelia.outliner.Meter
 		:pos(-screen.x + 25, -screen.y * 0.5)
 		:scale(2.5)
 		:opacity(fadeLerp.currPos)
 		:color(1, redBar, redBar)
 	
 	-- Position middle bar to bottom, scale to top
-	parts.group.Bar
+	cecaelia.outliner.Bar
 		:pos(0, -barLerp.currPos / 2)
 		:scale(1, barLerp.currPos + 1, 1)
 	
-	parts.group.Bar.Glass
+	cecaelia.outliner.Bar.Glass
 		:setUVMatrix(matrices.mat3():scale(1, barLerp.currPos + 1, 1))
 	
-	parts.group.Bar.Ink
+	cecaelia.outliner.Bar.Ink
 		:scale(1, inkLeft, 1)
 		:color(vectors.hexToRGB(inkColor.curr))
 		:setUVMatrix(matrices.mat3():scale(1, (barLerp.currPos + 1) * inkLeft, 1))
 	
 	-- Position cap to top
-	parts.group.Top:pos(0, barLerp.currPos / 2)
+	cecaelia.outliner.Top:pos(0, barLerp.currPos / 2)
 	
 	-- Position cap to bottom
-	parts.group.Bottom:pos(0, -barLerp.currPos / 2)
+	cecaelia.outliner.Bottom:pos(0, -barLerp.currPos / 2)
 	
 end
 

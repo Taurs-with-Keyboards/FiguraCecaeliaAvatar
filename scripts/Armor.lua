@@ -3,6 +3,9 @@ local parts        = require("lib.PartsAPI")
 local octopusArmor = require("lib.KattArmor")()
 local sync         = require("lib.LetThatSyncFig")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variables setup
 local helmet     = sync.new("ArmorHelmet", true):config()
 local chestplate = sync.new("ArmorChestplate", true):config()
@@ -15,17 +18,17 @@ octopusArmor.Armor.Leggings:setLayer(1)
 
 -- Armor parts
 octopusArmor.Armor.Leggings
-	:addParts(table.unpack(parts:createTable(function(part) return part:getName() == "Leggings" end)))
-	:addTrimParts(table.unpack(parts:createTable(function(part) return part:getName() == "LeggingsTrim" end)))
+	:addParts(cecaelia:createGroup(function(part) return part:getName() == "Leggings" end))
+	:addTrimParts(cecaelia:createGroup(function(part) return part:getName() == "LeggingsTrim" end))
 octopusArmor.Armor.Boots
-	:addParts(table.unpack(parts:createTable(function(part) return part:getName() == "Boot" end)))
-	:addTrimParts(table.unpack(parts:createTable(function(part) return part:getName() == "BootTrim" end)))
+	:addParts(cecaelia:createGroup(function(part) return part:getName() == "Boot" end))
+	:addTrimParts(cecaelia:createGroup(function(part) return part:getName() == "BootTrim" end))
 
 -- Leather armor
 octopusArmor.Materials.leather
 	:setTexture(textures["textures.armor.leatherOverlay"] or textures["Cecaelia.leatherOverlay"])
-	:addParts(octopusArmor.Armor.Leggings, table.unpack(parts:createTable(function(part) return part:getName() == "LeggingsLeather" end)))
-	:addParts(octopusArmor.Armor.Boots,    table.unpack(parts:createTable(function(part) return part:getName() == "BootLeather" end)))
+	:addParts(octopusArmor.Armor.Leggings, cecaelia:createGroup(function(part) return part:getName() == "LeggingsLeather" end))
+	:addParts(octopusArmor.Armor.Boots,    cecaelia:createGroup(function(part) return part:getName() == "BootLeather" end))
 
 -- Chainmail armor
 octopusArmor.Materials.chainmail
@@ -77,60 +80,67 @@ for _, trim in ipairs(trims) do
 	end
 end
 
--- Helmet parts
-local helmetGroups = {
-	
-	vanilla_model.HELMET
-	
+-- Armor parts
+---@type table<SyncObject, {
+--- slot: integer | nil,
+--- show: (ModelPart | VanillaModelGroup)[],
+--- hide: (ModelPart | VanillaModelGroup)[],
+--- }>
+local armorGroups = {
+	[helmet] = {
+		slot = 6,
+		show = {vanilla_model.HELMET},
+		hide = {}
+	},
+	[chestplate] = {
+		slot = 5,
+		show = {vanilla_model.CHESTPLATE},
+		hide = {}
+	},
+	[leggings] = {
+		slot = 4,
+		show = {
+			vanilla_model.LEGGINGS,
+			cecaelia:createGroup(function(part) return part:getName():find("ArmorLeggings") end)},
+		hide = {}
+	},
+	[boots] = {
+		slot = 3,
+		show = {
+			vanilla_model.BOOTS,
+			cecaelia:createGroup(function(part) return part:getName():find("ArmorBoot") end)
+		},
+		hide = {}
+	},
+	[octopus] = {
+		slot = nil,
+		show = {cecaelia:createGroup(function(part) return part:getName():find("ArmorOctopus") end)},
+		hide = {}
+	},
 }
-
--- Chestplate parts
-local chestplateGroups = {
-	
-	vanilla_model.CHESTPLATE
-	
-}
-
--- Leggings parts
-local leggingsGroups = {
-	
-	vanilla_model.LEGGINGS,
-	table.unpack(parts:createTable(function(part) return part:getName():find("ArmorLeggings") end))
-	
-}
-
--- Boots parts
-local bootsGroups = {
-	
-	vanilla_model.BOOTS,
-	table.unpack(parts:createTable(function(part) return part:getName():find("ArmorBoot") end))
-	
-}
-
--- Tail parts
-local octopusGroups = parts:createTable(function(part) return part:getName():find("ArmorOctopus") end)
 
 function events.RENDER(delta, context)
 	
-	-- Apply
-	for _, part in ipairs(helmetGroups) do
-		part:visible(helmet.curr)
-	end
-	
-	for _, part in ipairs(chestplateGroups) do
-		part:visible(chestplate.curr)
-	end
-	
-	for _, part in ipairs(leggingsGroups) do
-		part:visible(leggings.curr)
-	end
-	
-	for _, part in ipairs(bootsGroups) do
-		part:visible(boots.curr)
-	end
-	
-	for _, part in ipairs(octopusGroups) do
-		part:visible(octopus.curr)
+	-- Toggle armor
+	for obj, armorParts in pairs(armorGroups) do
+		
+		-- State of toggle
+		local state = obj.curr
+		
+		-- Show parts when armor equipped
+		local show = armorParts.show
+		local showState = state
+		for i = 1, #show do
+			show[i]:visible(showState)
+		end
+		
+		-- Hide parts when armor equipped
+		local hide = armorParts.hide
+		local hideState = not (state and (armorParts.slot == nil or player:getItem(armorParts.slot).id ~= "minecraft:air"))
+		for i = 1, #hide do
+			hide[i]:visible(hideState)
+		end
+		
 	end
 	
 end
@@ -143,11 +153,11 @@ local function equipSound()
 end
 
 -- Apply sound to sync updates
-helmet:addFunc(equipSound)
-chestplate:addFunc(equipSound)
-leggings:addFunc(equipSound)
-boots:addFunc(equipSound)
-octopus:addFunc(equipSound)
+helmet:addFuncs(equipSound)
+chestplate:addFuncs(equipSound)
+leggings:addFuncs(equipSound)
+boots:addFuncs(equipSound)
+octopus:addFuncs(equipSound)
 
 -- Host only instructions
 if not host:isHost() then return end
