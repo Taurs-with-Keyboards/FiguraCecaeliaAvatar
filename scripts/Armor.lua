@@ -3,6 +3,9 @@ local parts        = require("lib.PartsAPI")
 local octopusArmor = require("lib.KattArmor")()
 local sync         = require("lib.LetThatSyncFig")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variables setup
 local helmet     = sync.new("ArmorHelmet", true):config()
 local chestplate = sync.new("ArmorChestplate", true):config()
@@ -15,17 +18,17 @@ octopusArmor.Armor.Leggings:setLayer(1)
 
 -- Armor parts
 octopusArmor.Armor.Leggings
-	:addParts(table.unpack(parts:createTable(function(part) return part:getName() == "Leggings" end)))
-	:addTrimParts(table.unpack(parts:createTable(function(part) return part:getName() == "LeggingsTrim" end)))
+	:addParts(table.unpack(cecaelia:createTable(function(part) return part:getName() == "Leggings" end)))
+	:addTrimParts(table.unpack(cecaelia:createTable(function(part) return part:getName() == "LeggingsTrim" end)))
 octopusArmor.Armor.Boots
-	:addParts(table.unpack(parts:createTable(function(part) return part:getName() == "Boot" end)))
-	:addTrimParts(table.unpack(parts:createTable(function(part) return part:getName() == "BootTrim" end)))
+	:addParts(table.unpack(cecaelia:createTable(function(part) return part:getName() == "Boot" end)))
+	:addTrimParts(table.unpack(cecaelia:createTable(function(part) return part:getName() == "BootTrim" end)))
 
 -- Leather armor
 octopusArmor.Materials.leather
 	:setTexture(textures["textures.armor.leatherOverlay"] or textures["Cecaelia.leatherOverlay"])
-	:addParts(octopusArmor.Armor.Leggings, table.unpack(parts:createTable(function(part) return part:getName() == "LeggingsLeather" end)))
-	:addParts(octopusArmor.Armor.Boots,    table.unpack(parts:createTable(function(part) return part:getName() == "BootLeather" end)))
+	:addParts(octopusArmor.Armor.Leggings, table.unpack(cecaelia:createTable(function(part) return part:getName() == "LeggingsLeather" end)))
+	:addParts(octopusArmor.Armor.Boots,    table.unpack(cecaelia:createTable(function(part) return part:getName() == "BootLeather" end)))
 
 -- Chainmail armor
 octopusArmor.Materials.chainmail
@@ -95,7 +98,7 @@ local chestplateGroups = {
 local leggingsGroups = {
 	
 	vanilla_model.LEGGINGS,
-	table.unpack(parts:createTable(function(part) return part:getName():find("ArmorLeggings") end))
+	table.unpack(cecaelia:createTable(function(part) return part:getName():find("ArmorLeggings") end))
 	
 }
 
@@ -103,12 +106,12 @@ local leggingsGroups = {
 local bootsGroups = {
 	
 	vanilla_model.BOOTS,
-	table.unpack(parts:createTable(function(part) return part:getName():find("ArmorBoot") end))
+	table.unpack(cecaelia:createTable(function(part) return part:getName():find("ArmorBoot") end))
 	
 }
 
 -- Tail parts
-local octopusGroups = parts:createTable(function(part) return part:getName():find("ArmorOctopus") end)
+local octopusGroups = cecaelia:createTable(function(part) return part:getName():find("ArmorOctopus") end)
 
 function events.RENDER(delta, context)
 	
@@ -143,11 +146,11 @@ local function equipSound()
 end
 
 -- Apply sound to sync updates
-helmet:addFunc(equipSound)
-chestplate:addFunc(equipSound)
-leggings:addFunc(equipSound)
-boots:addFunc(equipSound)
-octopus:addFunc(equipSound)
+helmet:addFuncs(equipSound)
+chestplate:addFuncs(equipSound)
+leggings:addFuncs(equipSound)
+boots:addFuncs(equipSound)
+octopus:addFuncs(equipSound)
 
 -- Host only instructions
 if not host:isHost() then return end

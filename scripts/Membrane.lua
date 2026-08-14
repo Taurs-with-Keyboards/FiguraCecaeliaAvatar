@@ -3,8 +3,11 @@ local parts    = require("lib.PartsAPI")
 local sync     = require("lib.LetThatSyncFig")
 local membrane = require("lib.MembraneAPI")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Membrane parts
-local membraneParts = parts:createTable(function(part) return part:getName():find("Membrane") end)
+local membraneParts = cecaelia:createTable(function(part) return part:getName():find("Membrane") end)
 
 -- Only run script if permission level is met
 if avatar:getPermissionLevel() ~= "MAX" then
@@ -32,10 +35,10 @@ local function makeWeb(name)
 	local seg = tonumber(name:match("[sS]eg(%d+)"))
 	
 	return {
-		parts.group[makeName(ten + 1, seg + 1)],
-		parts.group[makeName(ten, seg + 1)],
-		parts.group[name],
-		parts.group[makeName(ten + 1, seg)],
+		cecaelia.outliner[makeName(ten + 1, seg + 1)],
+		cecaelia.outliner[makeName(ten, seg + 1)],
+		cecaelia.outliner[name],
+		cecaelia.outliner[makeName(ten + 1, seg)],
 	}
 	
 end
@@ -60,7 +63,7 @@ function events.RENDER(delta, context)
 end
 
 -- Apply sound function
-local toggleSound = toggle:addFunc(function()
+local toggleSound = toggle:addFuncs(function()
 	if player:isLoaded() then
 		sounds:playSound("entity.phantom.flap", player:getPos())
 	end

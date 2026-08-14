@@ -5,6 +5,9 @@ local lerp    = require("lib.LerpAPI")
 local ground  = require("lib.GroundCheck")
 local effects = require("scripts.SyncedVariables")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variables setup
 local tailType  = sync.new("TailType", 4):config()
 local small     = sync.new("TailSmall", true):config()
@@ -133,11 +136,11 @@ function events.RENDER(delta, context)
 	local legsApply = scale.legs.currPos
 	
 	-- Apply tail
-	parts.group.Octopus:scale(tailApply)
+	cecaelia.outliner.Octopus:scale(tailApply)
 	
 	-- Apply legs
-	parts.group.LeftLeg:scale(legsApply)
-	parts.group.RightLeg:scale(legsApply)
+	cecaelia.outliner.LeftLeg:scale(legsApply)
+	cecaelia.outliner.RightLeg:scale(legsApply)
 	
 	-- Update tail data
 	tailData.scale = tailApply
@@ -149,33 +152,31 @@ end
 if not host:isHost() then return tailData end
 
 -- Apply sound functions
-local tailSound = tailType:addFunc(function()
+local tailSound = tailType:addFuncs(function()
 	if player:isLoaded() then
 		sounds:playSound("ambient.underwater.enter", player:getPos(), 0.35)
 	end
 end)
-local fallToggleSound = fallSound:addFunc(function()
+local fallToggleSound = fallSound:addFuncs(function()
 	if player:isLoaded() and fallSound.curr then
 		sounds:playSound("entity.puffer_fish.flop", player:getPos(), 0.35, 0.6)
 	end
 end)
 
--- Required script
-local keybound = require("lib.Keybound")
-
 -- Setup keybinds
-local tailKeybind = keybound.new(
-	keybinds
-		:newKeybind("Tail Sensitivity Type", "key.keyboard.keypad.1")
-		:onPress(function() tailType:update((tailType.curr % #waterTypes) + 1) end),
-	"TailTypeKeybind"
-)
-local smallKeybind = keybound.new(
-	keybinds
-		:newKeybind("Small Tail Toggle", "key.keyboard.keypad.2")
-		:onPress(function() small:update(not small.curr) end),
-	"TailSmallKeybind"
-)
+local keyboundSuccess = pcall(require, "lib.Keybound")
+if keyboundSuccess then
+	local tailKeybind = keybinds:newKeybind("Tail Sensitivity Type", "key.keyboard.keypad.1")
+		:config("TailTypeKeybind")
+		:onPress(function()
+			tailType:update((tailType.curr % #waterTypes) + 1)
+		end)
+	local smallKeybind = keybinds:newKeybind("Small Tail Toggle", "key.keyboard.keypad.2")
+		:config("TailSmallKeybind")
+		:onPress(function()
+			small:update(not small.curr)
+		end)
+end
 
 -- Required script
 local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")

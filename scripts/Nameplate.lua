@@ -1,9 +1,12 @@
 -- Required script
 local parts = require("lib.PartsAPI")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Variable setup
-local nameGroup = parts.group.Nameplate
-local namePivot = parts.group.NameplatePivot
+local nameGroup = cecaelia.outliner.Nameplate
+local namePivot = cecaelia.outliner.NameplatePivot
 if not nameGroup then return end
 
 -- Head midRender event
@@ -25,7 +28,7 @@ function events.ENTITY_INIT()
 		local pose = player:getPose()
 		
 		-- If any pose that rotates, rotate the pivot to match, and slightly raise pivot
-		namePivot:offsetRot((pose ~= "STANDING" and pose ~= "CROUCHING") and player:getRot(delta).x__ + vec(90 * (pose == "SLEEPING" and -1 or 1), 0, 0) or nil)
+		namePivot:offsetRot((pose ~= "STANDING" and pose ~= "CROUCHING") and player:getRot(delta).x__ + vec(90 * (pose == "SLEEPING" and -1 or 1), 0, 0) or nil --[[@as Vector3]])
 		nameplate.ENTITY:pivot(nameplate.ENTITY:getPivot() + ((pose ~= "STANDING" and pose ~= "CROUCHING") and vec(0, 0.1, 0) or 0))
 		
 	end

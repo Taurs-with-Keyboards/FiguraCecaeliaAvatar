@@ -26,8 +26,11 @@ local parts = require("lib.PartsAPI")
 local sync  = require("lib.LetThatSyncFig")
 local lerp  = require("lib.LerpAPI")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Variable setup
-local camera = parts.group.Camera
+local camera = cecaelia.outliner.Camera
 if not camera then return end
 
 -- Get server data
@@ -62,7 +65,7 @@ local function cameraReset()
 		:crosshairOffset(nil)
 	
 	-- Show head
-	parts.group.Head
+	cecaelia.outliner.Head
 		:visible(true)
 		:opacity(1)
 	
@@ -121,7 +124,7 @@ function events.RENDER(delta, context)
 			-- Hide head
 			local headVisible = not (renderer:isFirstPerson() and (context == "OTHER" or context == "RENDER"))
 			local shader = client:hasShaderPack()
-			parts.group.Head
+			cecaelia.outliner.Head
 				:visible(shader or headVisible)
 				:opacity(shader and (headVisible and 1 or 0) or 1)
 			
@@ -145,7 +148,7 @@ end
 if not host:isHost() then return end
 
 -- Save server to config
-local saveServer = allowEye:addFunc(function()
+local saveServer = allowEye:addFuncs(function()
 	savedServers[serverId] = allowEye.curr
 	config:save("CameraServers", savedServers)
 end)

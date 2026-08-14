@@ -4,6 +4,9 @@ local sync    = require("lib.LetThatSyncFig")
 local effects = require("scripts.SyncedVariables")
 local pose    = require("scripts.Posing")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variable setup
 local bubbles = sync.new("WhirlpoolState", 2):config()
 
@@ -20,7 +23,7 @@ local bubbleTypes = {
 }
 
 -- Bubble spawner locations
-local whirlpoolParts = parts:createTable(function(part) return part:getName():find("Bubble") end)
+local whirlpoolParts = cecaelia:createTable(function(part) return part:getName():find("Bubble") end)
 
 function events.TICK()
 	
@@ -42,7 +45,7 @@ end
 if not host:isHost() then return end
 
 -- Apply sound function
-local bubblesSound = bubbles:addFunc(function()
+local bubblesSound = bubbles:addFuncs(function()
 	if player:isLoaded() and bubbles.curr ~= 1 then
 		sounds:playSound(bubbles.curr == 2 and "entity.dolphin.ambient" or "block.bubble_column.upwards_inside", player:getPos(), 0.35)
 	end

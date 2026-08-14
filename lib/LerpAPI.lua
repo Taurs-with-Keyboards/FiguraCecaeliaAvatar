@@ -8,40 +8,83 @@
 --         \ \__\ \ \_______\   \ \__\ \ \__\ \__\ \_______\
 --          \|__|  \|_______|    \|__|  \|__|\|__|\|_______|
 --
--- Version: 1.2.9
+-- Version: 1.2.12
 
--- Create API
+-- An API for handling the creation of Lerp Objects.
+---@class LerpAPI
 local lerpAPI = {}
 
--- Lerps table
+-- A lerp object.
+---@class LerpObject
+-- The previous tick of the lerp object, before the next tick calculation is made.
+---@field prevTick unknown
+-- The current tick calculation of the lerp object.
+---@field currTick unknown
+-- The current position of the lerp object.
+---@field currPos unknown
+-- The target of the lerp object.
+---@field target unknown
+-- How fast the lerps `currTick` is heading towards its target. Its velocity.
+---@field vel unknown
+-- How fast the lerp moves towards its target (in percentage each tick).
+---@field stiff number
+-- How much a lerp is allowed to bounce around its target.
+---@field damp number
+-- How long it takes for the object to change velocity.
+---@field mass number
+-- Toggles the updating of the lerp object.
+---@field enabled boolean
+local lerpObject = {}
+
+-- A table that holds the lerp objects.
+---@type table<LerpObject, boolean>
 local lerps = {}
 
--- Interal lerp data
-local lerpInternal = {}
-
--- Meta table setup
+-- The metatable for lerp objects.
 local lerpMeta = {
-	__index = lerpInternal,
+	__index = lerpObject,
 	__type = "LerpObject"
 }
 
--- Mass checker that errors if mass is 0
-local function massCheck(val)
-	return val == 0 and error("\n\n§6Mass cannot be 0.\n§c", 3) or val
+-- Mass checker that errors if mass is 0.
+---@param mass number #
+-- Number that is checked for validity in the context of spring physics.
+local function massCheck(mass)
+	return mass == 0 and error("\n\n§6Mass cannot be 0.\n§c", 3) or mass
 end
 
--- Create a lerp object
-function lerpAPI.new(pos, stiff, damp, mass)
+-- Creates a lerp object.
+---@param initPos? number | Vector.any | Matrix.any #
+-- The initial position of the lerp.  
+-- Can be a number, vector, or matrix.  
+-- Defaults to `0`.
+---@param stiff? number #
+-- How fast the lerp moves towards its target (in percentage each tick).  
+-- `0` will never approach the target.  
+-- `1` will reach the target within the tick.  
+-- Defaults to `0.2`.
+---@param damp? number #
+-- How much a lerp is allowed to bounce around its target.  
+-- `0` will never reach its target due to bouncing.  
+-- `1` wont bounce around the target.  
+-- Defaults to `1`.
+---@param mass? number #
+-- How long it takes for the object to change velocity.  
+-- Cannot have a mass of `0`, otherwise divide by `0` errors will occur.  
+-- You can *still* do `0` by changing it in field, but ur asking for issues at that point.  
+-- Defaults to `1`.
+---@nodiscard
+function lerpAPI.new(initPos, stiff, damp, mass)
 	
 	-- Create object
-	pos = pos or 0
+	initPos = initPos or 0.0
 	local obj = setmetatable(
 		{
-			prevTick = pos,
-			currTick = pos,
-			target   = pos,
-			currPos  = pos,
-			vel      = type(pos) ~= "number" and pos:copy():reset() or 0,
+			prevTick = initPos,
+			currTick = initPos,
+			currPos  = initPos,
+			target   = initPos,
+			vel      = type(initPos) ~= "number" and initPos:copy():reset() --[[@as number | Vector.any | Matrix.any]] or 0,
 			stiff    = stiff or 0.2,
 			damp     = damp or 1,
 			mass     = massCheck(mass) or 1,
@@ -50,29 +93,30 @@ function lerpAPI.new(pos, stiff, damp, mass)
 		lerpMeta
 	)
 	
-	-- Add object to list
-	lerps[obj] = obj
+	-- Add object to table
+	lerps[obj] = true
 	
 	-- Return object
 	return obj
 	
 end
 
--- Iterate through the lerps to set the next tick of each lerp
+-- This tick event iterates through the lerps table, and preforms spring calculations.  
+-- Only preforms calculations on enabled lerps if the game is unpaused.
 events.TICK:register(function()
 	if not client:isPaused() then
-		for _, obj in pairs(lerps) do
+		for obj in pairs(lerps) do
 			if obj.enabled then
 				
-				-- Reset ticks
+				-- Store previous ticks
 				obj.prevTick = obj.currTick
 				
-				-- Calc
+				-- Calculate spring physics
 				local fSpring = -obj.stiff * (obj.currTick - obj.target)
 				local fDamp   = -obj.damp * obj.vel
 				local acc     = (fSpring + fDamp) / obj.mass
 				
-				-- Apply
+				-- Apply to lerps
 				obj.vel = obj.vel + acc
 				obj.currTick = obj.currTick + obj.vel
 				
@@ -81,13 +125,14 @@ events.TICK:register(function()
 	end
 end, "lerpTick")
 
--- Iterate through the lerps to smooth the lerp each frame
-events.RENDER:register(function(delta, context)
+-- This render event iterates through the lerps table, and smooths the lerp between the previous tick and the current tick, using delta.  
+-- Only preforms calculations on enabled lerps if the game is unpaused.
+events.RENDER:register(function(delta)
 	if not client:isPaused() then
-		for _, obj in pairs(lerps) do
+		for obj in pairs(lerps) do
 			if obj.enabled then
 				
-				-- Apply
+				-- Lerp previous ticks to current ticks
 				obj.currPos = math.lerp(obj.prevTick, obj.currTick, delta)
 				
 			end
@@ -95,119 +140,118 @@ events.RENDER:register(function(delta, context)
 	end
 end, "lerpRender")
 
--- Sets enabled
-function lerpInternal:setEnabled(bool)
+-- Sets if a lerp object should be enabled.
+---@param enable boolean #
+-- Determines if the lerp should function.  
+-- Saves on instructions if the lerp is not in use.
+function lerpObject:setEnabled(enable)
 	
-	--[[
-		Enabled:
-		Determines if the lerp should function
-		Saves on instructions if the lerp is not in use
-	--]]
-	self.enabled = bool
-	
-	-- Return object
-	return self
-	
-end
-
--- Sets target
-function lerpInternal:setTarget(val)
-	
-	--[[
-		Target:
-		The position the lerp will attempt to reach in a smooth manner
-	--]]
-	self.target = val
+	-- Sets state to object
+	self.enabled = enable
 	
 	-- Return object
 	return self
 	
 end
 
--- Gets position
-function lerpInternal:getPos()
+-- Sets the target of a lerp object.
+---@param target number | Vector.any | Matrix.any #
+-- The direction a lerp will move gradually, and eventually stop at.  
+-- Can be a number, vector, or matrix.
+function lerpObject:setTarget(target)
 	
-	--[[
-		Position:
-		The current position of the lerp on its way to the target
-	--]]
+	-- Sets target to object
+	self.target = target
+	
+	-- Return object
+	return self
+	
+end
+
+-- Gets the current position of a lerp on its way to its target.
+function lerpObject:getPos()
+	
+	-- Return position
 	return self.currPos
 	
 end
 
--- Sets stiffness
-function lerpInternal:setStiff(val)
+-- Sets the stiffness of a lerp object.
+---@param stiff number #
+-- How fast the lerp moves towards its target (in percentage each tick).  
+-- `0` will never approach the target.  
+-- `1` will reach the target within the tick.
+function lerpObject:setStiff(stiff)
 	
-	--[[
-		Stiffness:
-		How fast the object moves towards its target (in percentage each tick)
-		0 means it will never approach the target
-		1 means it will reach the target within the tick
-	--]]
-	self.stiff = val
-	
-	-- Return object
-	return self
-	
-end
-
--- Sets damping
-function lerpInternal:setDamp(val)
-	
-	--[[
-		Damping:
-		How much an object is allowed to bounce around its target
-		0 means it will never reach its target due to bouncing
-		1 means it wont bounce around the target
-	--]]
-	self.damp = val
+	-- Sets stiffness to object
+	self.stiff = stiff
 	
 	-- Return object
 	return self
 	
 end
 
--- Sets mass
-function lerpInternal:setMass(val)
+-- Sets the dampness of a lerp object.
+---@param damp number #
+-- How much a lerp is allowed to bounce around its target.  
+-- `0` will never reach its target due to bouncing.  
+-- `1` wont bounce around the target.
+function lerpObject:setDamp(damp)
 	
-	--[[
-		Mass:
-		How long it takes for the object to change velocity
-		Cannot have a mass of 0, otherwise divide by 0 errors will occur
-		You can *still* do 0 by changing it in field, but ur asking for issues at that point
-	--]] 
-	self.mass = massCheck(val)
+	-- Sets dampness to object
+	self.damp = damp
 	
 	-- Return object
 	return self
 	
 end
 
--- Resets lerp, with optional target
-function lerpInternal:reset(pos)
+-- Sets the mass of a lerp object.
+---@param mass number #
+-- How long it takes for the object to change velocity.  
+-- Cannot have a mass of `0`, otherwise divide by `0` errors will occur.  
+-- You can *still* do `0` by changing it in field, but ur asking for issues at that point.
+function lerpObject:setMass(mass)
 	
-	--[[
-		Lerp variables:
-		The initial variables the lerp uses to control it position, in tick and render
-	--]]
-	pos = pos or 0
+	-- Sets mass to object
+	self.mass = massCheck(mass)
+	
+	-- Return object
+	return self
+	
+end
+
+-- Resets a lerp to a given position.
+---@param pos? number | Vector.any | Matrix.any #
+-- The position a lerp will reset to.
+-- When this function is called, a lerp is completely halted, and set to a given position.
+function lerpObject:reset(pos)
+	
+	-- Sets position to internal positional values
+	pos = pos or 0.0
 	self.prevTick = pos
 	self.currTick = pos
 	self.target   = pos
 	self.currPos  = pos
-	self.vel      = 0
+	self.vel      = type(pos) ~= "number" and pos:copy():reset() --[[@as number | Vector.any | Matrix.any]] or 0
 	
 	-- Return object
 	return self
 	
 end
 
--- Flips velocity and "Bounces" position off of provided value
--- Great for creating limits to lerp when using spring lerping
-function lerpInternal:bounce(val, damp)
+-- Reverses a lerp object's velocity and "Bounces" it off of the provided value.  
+-- Great for creating limits to a lerp when using spring lerping.
+---@param pos number | Vector.any | Matrix.any #
+-- Sets the current tick position of a lerp object.  
+-- This effectively tells the lerp to smoothly come to a stop at its limit, and flips the velocity, sending it the opposite direction.
+---@param damp? number #
+-- Determines how strongly the velocity is flipped during the bounce.  
+-- Helps create the illusion that energy is lost when a bounce is preformed... or that energy is added, if you prefer.
+function lerpObject:bounce(pos, damp)
 	
-	-- Apply
-	self.currTick = val
+	-- Apply bounce to object
+	self.currTick = pos
 	self.vel = -self.vel * (damp or 1)
 	
 	-- Return object
@@ -215,9 +259,11 @@ function lerpInternal:bounce(val, damp)
 	
 end
 
--- Removes lerp
-function lerpInternal:remove()
+-- Removes a lerp object from the table of lerp calculations.
+-- Remember to remove references to this object to help Garbage Cleanup remove the lerp.
+function lerpObject:remove()
 	
+	-- Removes object
 	lerps[self] = nil
 	
 end

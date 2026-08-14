@@ -4,6 +4,9 @@ local sync  = require("lib.LetThatSyncFig")
 local lerp  = require("lib.LerpAPI")
 local tail  = require("scripts.Tail")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Synced variables setup
 local toggle  = sync.new("GlowToggle", true):config()
 local dynamic = sync.new("GlowDynamic", false):config()
@@ -11,28 +14,28 @@ local water   = sync.new("GlowWater", false):config()
 local unique  = sync.new("GlowUnique", false):config()
 
 -- Glowing parts
-local glowingParts = parts:createTable(function(part) return part:getName():find("_[gG]low") end)
+local glowingParts = cecaelia:createTable(function(part) return part:getName():find("_[gG]low") end)
 
-for i, part in ipairs(glowingParts) do
-	
-	glowingParts[i] = {
-		part   = part,
+local glowObjs = {}
+for i = 1, #glowingParts do
+	glowObjs[i] = {
+		part   = glowingParts[i],
 		splash = false,
 		timer  = 0,
 		glow   = lerp.new(toggle.curr and 1 or 0)
 	}
-	
 end
 
 -- Check if a splash potion is broken near a part
 function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, category, path)
 	
 	if player:isLoaded() then
-		for _, index in ipairs(glowingParts) do
-			local partPos  = index.part:getParent():partToWorldMatrix():apply()
+		for i = 1, #glowObjs do
+			local obj      = glowObjs[i]
+			local partPos  = obj.part:getParent():partToWorldMatrix():apply()
 			local atPos    = pos < partPos + 1.5 and pos > partPos - 1.5
 			local splashID = id == "minecraft:entity.splash_potion.break" or id == "minecraft:entity.lingering_potion.break"
-			index.splash = atPos and splashID and path
+			obj.splash     = atPos and splashID and path
 		end
 	end
 	
@@ -60,15 +63,18 @@ function events.TICK()
 	
 	-- Set glow target
 	-- Toggle check
-	for _, index in ipairs(glowingParts) do
+	for i = 1, #glowObjs do
 		
-		if toggle.curr and index.part:getVisible() then
+		-- Get object
+		local obj = glowObjs[i]
+		
+		if toggle.curr and obj.part:getVisible() then
 			
 			-- Init apply
-			index.glow.target = 1
+			obj.glow.target = 1
 			
 			-- Get pos
-			local pos = unique.curr and index.part:getParent():partToWorldMatrix():apply() or player:getPos()
+			local pos = unique.curr and obj.part:getParent():partToWorldMatrix():apply() or player:getPos()
 			
 			-- Light level check
 			if dynamic.curr then
@@ -77,7 +83,7 @@ function events.TICK()
 				local light = math.map(world.getLightLevel(pos), 0, 15, 1, 0)
 				
 				-- Apply
-				index.glow.target = index.glow.target * light
+				obj.glow.target = obj.glow.target * light
 				
 			end
 			
@@ -101,10 +107,10 @@ function events.TICK()
 					-- Check drinking water
 					if (drinkingL or drinkingR) and player:getActiveItemTime() > 20
 						or world.getRainGradient() > 0.2 and world.isOpenSky(pos) and world.getBiome(pos):getPrecipitation() == "RAIN"
-						or index.splash then
+						or obj.splash then
 						
 						wet = true
-						index.splash = false
+						obj.splash = false
 						
 					end
 					
@@ -116,24 +122,24 @@ function events.TICK()
 				
 				-- Adjust timer
 				if wet then
-					index.timer = modDryTimer
+					obj.timer = modDryTimer
 				else
-					index.timer = math.clamp(index.timer - 1 * dryRate, 0, modDryTimer)
+					obj.timer = math.clamp(obj.timer - 1 * dryRate, 0, modDryTimer)
 				end
 				
 				-- Apply
-				index.glow.target = index.glow.target * (index.timer / modDryTimer)
+				obj.glow.target = obj.glow.target * (obj.timer / modDryTimer)
 				
 			end
 			
 		else
 			
 			-- Apply
-			index.glow.target = 0
+			obj.glow.target = 0
 			
 		end
 		
-		index.glow.enabled = index.part:getVisible()
+		obj.glow.enabled = obj.part:getVisible()
 		
 	end
 	
@@ -144,11 +150,14 @@ function events.RENDER(delta, context)
 	-- Check render type
 	local renderType = context == "RENDER" and "EMISSIVE" or "EYES"
 	
-	for _, index in ipairs(glowingParts) do
+	for i = 1, #glowObjs do
+		
+		-- Get object
+		local obj = glowObjs[i]
 		
 		-- Apply
-		index.part
-			:secondaryColor(index.glow.currPos)
+		obj.part
+			:secondaryColor(obj.glow.currPos)
 			:secondaryRenderType(renderType)
 		
 	end
@@ -156,7 +165,7 @@ function events.RENDER(delta, context)
 end
 
 -- Apply sound function
-local toggleSound = toggle:addFunc(function()
+local toggleSound = toggle:addFuncs(function()
 	if player:isLoaded() and toggle.curr then
 		sounds:playSound("entity.glow_squid.ambient", player:getPos(), 0.75)
 	end
@@ -166,27 +175,26 @@ end)
 if not host:isHost() then return end
 
 -- Apply sound functions
-local dynamicSound = dynamic:addFunc(function()
+local dynamicSound = dynamic:addFuncs(function()
 	if player:isLoaded() and dynamic.curr then
 		sounds:playSound("entity.generic.drink", player:getPos(), 0.35)
 	end
 end)
-local waterSound = water:addFunc(function()
+local waterSound = water:addFuncs(function()
 	if player:isLoaded() and water.curr then
 		sounds:playSound("ambient.underwater.enter", player:getPos(), 0.35)
 	end
 end)
 
--- Required script
-local keybound = require("lib.Keybound")
-
 -- Setup keybind
-local toggleKeybind = keybound.new(
-	keybinds
-		:newKeybind("Glow Toggle", "key.keyboard.keypad.3")
-		:onPress(function() toggle:update(not toggle.curr) end),
-	"GlowToggleKeybind"
-)
+local keyboundSuccess = pcall(require, "lib.Keybound")
+if keyboundSuccess then
+	local toggleKeybind = keybinds:newKeybind("Glow Toggle", "key.keyboard.keypad.3")
+		:config("GlowToggleKeybind")
+		:onPress(function()
+			toggle:update(not toggle.curr)
+		end)
+end
 
 -- Required script
 local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")

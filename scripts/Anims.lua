@@ -9,6 +9,9 @@ local tail    = require("scripts.Tail")
 local pose    = require("scripts.Posing")
 local effects = require("scripts.SyncedVariables")
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Animations setup
 local anims = animations.Cecaelia
 
@@ -44,8 +47,8 @@ end
 -- Parrot pivots
 local parrots = {
 	
-	parts.group.LeftParrotPivot,
-	parts.group.RightParrotPivot
+	cecaelia.outliner.LeftParrotPivot,
+	cecaelia.outliner.RightParrotPivot
 	
 }
 
@@ -203,7 +206,7 @@ function events.TICK()
 	
 	-- Spawns notes around head while singing
 	if sing and world.getTime() % 5 == 0 then
-		notes(parts.group.Head, 1)
+		notes(cecaelia.outliner.Head, 1)
 	end
 	
 	-- Arm variables
@@ -249,8 +252,8 @@ function events.RENDER(delta, context)
 	local idleRot   = vec(math.deg(math.sin(idleTimer * 0.067) * 0.05), 0, math.deg(math.cos(idleTimer * 0.09) * 0.05 + 0.05))
 	
 	-- Apply arm rotations
-	parts.group.LeftArm:offsetRot((getOriginRot("LEFT_ARM", delta) + idleRot) * leftArmLerp.currPos)
-	parts.group.RightArm:offsetRot((getOriginRot("RIGHT_ARM", delta) - idleRot) * rightArmLerp.currPos)
+	cecaelia.outliner.LeftArm:offsetRot((getOriginRot("LEFT_ARM", delta) + idleRot) * leftArmLerp.currPos)
+	cecaelia.outliner.RightArm:offsetRot((getOriginRot("RIGHT_ARM", delta) - idleRot) * rightArmLerp.currPos)
 	
 	-- Parrot rot offset
 	for _, parrot in pairs(parrots) do
@@ -260,13 +263,13 @@ function events.RENDER(delta, context)
 	-- Crouch offset
 	local bodyRot = getOriginRot("BODY", delta)
 	local crouchPos = vec(0, -math.sin(math.rad(bodyRot.x)) * 2, -math.sin(math.rad(bodyRot.x)) * 12)
-	parts.group.UpperBody:offsetPivot(crouchPos):pos(crouchPos.xy_ * 2)
-	parts.group.Octopus:pos(crouchPos)
+	cecaelia.outliner.UpperBody:offsetPivot(crouchPos):pos(crouchPos.xy_ * 2 --[[@as Vector3]])
+	cecaelia.outliner.Octopus:pos(crouchPos)
 	
 	-- Spyglass rotations
 	local headRot = getOriginRot("HEAD", delta)
 	headRot.x = math.clamp(headRot.x, -90, 30)
-	parts.group.Spyglass:offsetRot(headRot)
+	cecaelia.outliner.Spyglass:offsetRot(headRot)
 		:pos(pose.crouch and vec(0, -4, 0) or nil)
 	
 end
@@ -295,16 +298,15 @@ end
 -- Host only instructions
 if not host:isHost() then return end
 
--- Required script
-local keybound = require("lib.Keybound")
-
 -- Setup keybind
-local singKeybind = keybound.new(
-	keybinds
-		:newKeybind("Singing Animation", "key.keyboard.keypad.5")
-		:onPress(function() isSing:update(not isSing.curr) end),
-	"AnimsSingKeybind"
-)
+local keyboundSuccess = pcall(require, "lib.Keybound")
+if keyboundSuccess then
+	local singKeybind = keybinds:newKeybind("Singing Animation", "key.keyboard.keypad.5")
+		:config("AnimsSingKeybind")
+		:onPress(function()
+			isSing:update(not isSing.curr)
+		end)
+end
 
 -- Required script
 local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")

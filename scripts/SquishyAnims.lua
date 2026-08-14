@@ -11,6 +11,9 @@ local effects   = require("scripts.SyncedVariables")
 -- Animation setup
 local anims = animations.Cecaelia
 
+-- Parts setup
+local cecaelia = parts.new(models.Cecaelia)
+
 -- Calculate parent's rotations
 local function calculateParentRot(m)
 	
@@ -25,12 +28,12 @@ end
 -- Tails table
 local tailParts = {
 	
-	parts.group.Ten1Seg1,
-	parts.group.Ten1Seg2,
-	parts.group.Ten1Seg3,
-	parts.group.Ten1Seg4,
-	parts.group.Ten1Seg5,
-	parts.group.Ten1Seg6
+	cecaelia.outliner.Ten1Seg1,
+	cecaelia.outliner.Ten1Seg2,
+	cecaelia.outliner.Ten1Seg3,
+	cecaelia.outliner.Ten1Seg4,
+	cecaelia.outliner.Ten1Seg5,
+	cecaelia.outliner.Ten1Seg6
 	
 }
 
@@ -60,7 +63,7 @@ local tailStrength  = tail.bendStrength
 -- Head table
 local headParts = {
 	
-	parts.group.UpperBody
+	cecaelia.outliner.UpperBody
 	
 }
 
@@ -111,7 +114,7 @@ function events.RENDER(delta, context)
 	-- Apply all tail rotations to every other segment
 	for i = 2, 8 do
 		for j, part in ipairs(tailParts) do
-			parts.group["Ten"..i.."Seg"..j]:offsetRot(part:getOffsetRot())
+			cecaelia.outliner["Ten"..i.."Seg"..j]:offsetRot(part:getOffsetRot())
 		end
 	end
 	
@@ -122,27 +125,27 @@ function events.RENDER(delta, context)
 	
 	-- Offset smooth torso in various parts
 	-- Note: acts strangely with `parts.group.body`
-	for _, group in ipairs(parts.group.UpperBody:getChildren()) do
-		if group ~= parts.group.Body then
+	for _, group in ipairs(cecaelia.outliner.UpperBody:getChildren()) do
+		if group ~= cecaelia.outliner.Body then
 			group:rot(-calculateParentRot(group:getParent()))
 		end
 	end
 	
 	-- Tentacle adjustments
-	parts.group.Ten1Seg1:offsetRot(
-		parts.group.Ten1Seg1:getOffsetRot() +
+	cecaelia.outliner.Ten1Seg1:offsetRot(
+		cecaelia.outliner.Ten1Seg1:getOffsetRot() +
 		vec(math.max(vanRightLeg, legLimit) - legLimit, 0, 0)
 	)
-	parts.group.Ten4Seg1:offsetRot(
-		parts.group.Ten4Seg1:getOffsetRot() -
+	cecaelia.outliner.Ten4Seg1:offsetRot(
+		cecaelia.outliner.Ten4Seg1:getOffsetRot() -
 		vec(math.min(vanRightLeg, -legLimit) + legLimit, 0, 0)
 	)
-	parts.group.Ten8Seg1:offsetRot(
-		parts.group.Ten8Seg1:getOffsetRot() +
+	cecaelia.outliner.Ten8Seg1:offsetRot(
+		cecaelia.outliner.Ten8Seg1:getOffsetRot() +
 		vec(math.max(vanLeftLeg, legLimit) - legLimit, 0, 0)
 	)
-	parts.group.Ten5Seg1:offsetRot(
-		parts.group.Ten5Seg1:getOffsetRot() -
+	cecaelia.outliner.Ten5Seg1:offsetRot(
+		cecaelia.outliner.Ten5Seg1:getOffsetRot() -
 		vec(math.min(vanLeftLeg, -legLimit) + legLimit, 0, 0)
 	)
 	
