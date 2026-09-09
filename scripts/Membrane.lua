@@ -42,7 +42,9 @@ local function makeWeb(name)
 end
 
 -- Create membrane webs
-for _, part in ipairs(membraneParts) do
+for i = 1, #membraneParts do
+	
+	local part = membraneParts[i]
 	
 	membrane:define(
 		part,

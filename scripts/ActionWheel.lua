@@ -48,19 +48,22 @@ local adjKeys = {
 }
 
 -- Create functions to override API
-for _, k in ipairs(adjKeys) do
+for i = 1, #adjKeys do
+	
+	-- Get current key
+	local key = adjKeys[i]
 	
 	-- Get old function
-	local oldFunc = oldActionIndex(nil, k)
+	local oldFunc = oldActionIndex(nil, key)
 	
 	-- Create wrapper around function
-	adjFuncs[k] = function(self, ...)
+	adjFuncs[key] = function(self, ...)
 		local item = itemCheck(...)
 		return oldFunc(self, item)
 	end
 	
 	-- Copy new function to alias
-	adjFuncs[k:gsub("^set(%u)", string.lower)] = adjFuncs[k]
+	adjFuncs[key:gsub("^set(%u)", string.lower)] = adjFuncs[key]
 	
 end
 

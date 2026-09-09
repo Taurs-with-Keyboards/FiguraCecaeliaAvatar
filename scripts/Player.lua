@@ -35,7 +35,8 @@ local skinParts = cecaelia:createGroup(function(part) return part:getName():find
 -- Layer parts
 local layerTypes = {"HAT", "JACKET", "LEFT_SLEEVE", "RIGHT_SLEEVE", "LEFT_PANTS_LEG", "RIGHT_PANTS_LEG", "CAPE", "TAIL_LAYER"}
 local layerParts = {}
-for _, type in pairs(layerTypes) do
+for i = 1, #layerTypes do
+	local type = layerTypes[i]
 	layerParts[type] = cecaelia:createGroup(function(part) return part:getName():find(type) end)
 end
 

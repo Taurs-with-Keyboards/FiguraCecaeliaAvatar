@@ -48,9 +48,9 @@ function events.TICK()
 		local solid = false
 		
 		-- Check for solid blocks
-		for _, block in ipairs(blocks) do
+		for i = 1, #blocks do
 			
-			if block:hasCollision() then
+			if blocks[i]:hasCollision() then
 				solid = true
 				break
 			end
@@ -74,7 +74,10 @@ function events.TICK()
 			local calcColor   = vectors.vec3()
 			local calcOpacity = #blocks
 			
-			for _, block in ipairs(blocks) do
+			for i = 1, #blocks do
+				
+				-- Get block
+				local block = blocks[i]
 				
 				-- Gather colors
 				if block.id == "minecraft:water" then
@@ -120,8 +123,8 @@ function events.RENDER(delta, context)
 	if client:isPaused() then return end
 	
 	-- Octopus textures
-	for _, tex in ipairs(octopusTextures) do
-		applyColor(tex, colorLerp.currPos)
+	for i = 1, #octopusTextures do
+		applyColor(octopusTextures[i], colorLerp.currPos)
 	end
 	
 	-- Glowing outline

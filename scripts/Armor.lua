@@ -73,7 +73,8 @@ local trims = {
 }
 
 -- Apply trims
-for _, trim in ipairs(trims) do
+for i = 1, #trims do
+	local trim = trims[i]
 	local tex = textures["textures.armor.trims."..trim.."Trim"] or textures["Cecaelia."..trim.."Trim"] or false
 	if tex then
 		octopusArmor.TrimPatterns[trim]:setTexture(tex)

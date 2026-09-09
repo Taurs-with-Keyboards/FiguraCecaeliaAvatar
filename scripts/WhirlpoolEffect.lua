@@ -32,9 +32,9 @@ function events.TICK()
 	
 	-- Spawn bubbles
 	if bubbleTypes[bubbles.curr]() and pose.swim and player:isInWater() then
-		for _, part in ipairs(whirlpoolParts) do
+		for i = 1, #whirlpoolParts do
 			particles["bubble"]
-				:pos(part:partToWorldMatrix():apply())
+				:pos(whirlpoolParts[i]:partToWorldMatrix():apply())
 				:spawn()
 		end
 	end
