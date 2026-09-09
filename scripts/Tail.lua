@@ -248,27 +248,27 @@ local waterInfo = {
 	{
 		title = {label = {text = "None", color = "red"}, text = "Cannot form."},
 		item  = "glass_bottle",
-		color = "FF5555"
+		color = vectors.hexToRGB("#FF5555")
 	},
 	{
 		title = {label = {text = "Low", color = "yellow"}, text = "Reactive to being underwater."},
 		item  = "potion",
-		color = "FFFF55"
+		color = vectors.hexToRGB("#FFFF55")
 	},
 	{
 		title = {label = {text = "Medium", color = "green"}, text = "Reactive to being in water."},
 		item  = "splash_potion",
-		color = "55FF55"
+		color = vectors.hexToRGB("#55FF55")
 	},
 	{
 		title = {label = {text = "High", color = "aqua"}, text = "Reactive to any form of water."},
 		item  = "lingering_potion",
-		color = "55FFFF"
+		color = vectors.hexToRGB("#55FFFF")
 	},
 	{
 		title = {label = {text = "Max", color = "blue"}, text = "Always active."},
 		item  = "dragon_breath",
-		color = "5555FF"
+		color = vectors.hexToRGB("#5555FF")
 	}
 }
 
@@ -309,7 +309,7 @@ function events.RENDER(delta, context)
 				}
 			))
 			:item(actionSetup.item.."{CustomPotionColor:"..tostring(0x0094FF).."}")
-			:color(vectors.hexToRGB(actionSetup.color))
+			:color(actionSetup.color)
 			:hoverColor(colors.hover)
 		
 		acts.tailSmallToggle

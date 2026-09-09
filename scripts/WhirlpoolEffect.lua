@@ -75,7 +75,7 @@ local BubbleInfo = {
 	{
 		title = {label = {text = "No Bubbles", color = "red"}, text = "No bubbles will spawn while swimming."},
 		item  = "soul_sand",
-		color = "000000"
+		color = vectors.hexToRGB("#000000")
 	},
 	{
 		title = {label = {text = "Dolphin\'s Grace", color = "yellow"}, text = "Bubbles will only spawn when under Dolphin\'s Grace."},

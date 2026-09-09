@@ -12,7 +12,7 @@ if not inkPart then return end
 
 -- Synced variables setup
 local active   = sync.new("InkActive", false)
-local inkColor = sync.new("InkColor", "27D5AF"):config()
+local inkColor = sync.new("InkColor", "#27D5AF"):config()
 
 -- Variables
 local cooldown = false
@@ -268,11 +268,11 @@ acts.inkColor = parentPage:newAction()
 		color[selectedRGB] = math.clamp(color[selectedRGB] + x/255, 0, 1)
 		
 		-- Update color
-		inkColor:update(vectors.rgbToHex(color), 20)
+		inkColor:update("#"..vectors.rgbToHex(color):upper(), 20)
 		fadeTimer = 0
 		
 		-- Gross check
-		if inkColor.curr == "ffffff" or inkColor.curr == "ffff00" then
+		if inkColor.curr == "#FFFFFF" or inkColor.curr == "#FFFF00" then
 			host:setActionbar("Shame on you.")
 		end
 		
@@ -295,7 +295,7 @@ function events.RENDER(delta, context)
 					{text = (selectedRGB == 2 and "[%d] "  or "%d " ):format(rgbInkColor.g), color = "green"},
 					{text = (selectedRGB == 3 and "[%d]\n" or "%d\n"):format(rgbInkColor.b), color = "blue"},
 					{text = "Selected Hex: ", bold = true, color = colors.secondary},
-					{text = inkColor.curr.."\n\n", color = "#"..inkColor.curr},
+					{text = inkColor.curr.."\n\n", color = inkColor.curr},
 					{text = "Click to change selection.\n\n", color = colors.secondary},
 					{text = "Notice:\n", bold = true, color = "gold"},
 					{text = "Brighter colors glow. Glowing settings control glowing.", color = "yellow"}
