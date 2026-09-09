@@ -152,17 +152,21 @@ if next(colors) ~= nil then
 	-- Update action wheel colors
 	function events.RENDER(delta, context)
 		
-		-- Create mermod colors
-		local appliedColors = {
-			hover     = math.lerp(initColors.hover, colorLerp.currPos, typeLerp.currPos),
-			active    = math.lerp(initColors.active, (colorLerp.currPos):applyFunc(function(a) return math.map(a, 0, 1, 0.1, 0.9) end), typeLerp.currPos),
-			primary   = "#"..vectors.rgbToHex(math.lerp(vectors.hexToRGB(initColors.primary), colorLerp.currPos, typeLerp.currPos)),
-			secondary = "#"..vectors.rgbToHex(math.lerp(vectors.hexToRGB(initColors.secondary), (colorLerp.currPos):applyFunc(function(a) return math.map(a, 0, 1, 0.1, 0.9) end), typeLerp.currPos))
-		}
-		
-		-- Update action wheel colors
-		for k in pairs(colors) do
-			colors[k] = appliedColors[k]
+		if action_wheel:isEnabled() then
+			
+			-- Create mermod colors
+			local appliedColors = {
+				hover     = math.lerp(initColors.hover, colorLerp.currPos, typeLerp.currPos),
+				active    = math.lerp(initColors.active, math.map(colorLerp.currPos, 0, 1, 0.1, 0.9), typeLerp.currPos),
+				primary   = "#"..vectors.rgbToHex(math.lerp(vectors.hexToRGB(initColors.primary), colorLerp.currPos, typeLerp.currPos)),
+				secondary = "#"..vectors.rgbToHex(math.lerp(vectors.hexToRGB(initColors.secondary), math.map(colorLerp.currPos, 0, 1, 0.1, 0.9), typeLerp.currPos))
+			}
+			
+			-- Update action wheel colors
+			for k in pairs(colors) do
+				colors[k] = appliedColors[k]
+			end
+			
 		end
 		
 	end

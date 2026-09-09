@@ -74,7 +74,7 @@ local backAct = action_wheel:newAction()
 	:title(toJson(
 		{text = "Go Back?", bold = true, color = "red"}
 	))
-	:hoverColor(vectors.hexToRGB("FF5555"))
+	:hoverColor(vectors.hexToRGB("#FF5555"))
 	:item("barrier")
 	:onLeftClick(function() pageNav.ascend() end)
 	:onRightClick(function() pageNav.reset() end)
