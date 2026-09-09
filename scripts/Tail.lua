@@ -49,7 +49,7 @@ function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, category, path)
 	-- Make sure the sound is happening near the player
 	if (player:getPos() - pos):length() > 2 then return end
 	
-	-- If sound contains "potion.break", and the user isnt already splashed, consider the user splashed
+	-- If sound contains "potion.break", and the user isn't already splashed, consider the user splashed
 	if id:find("potion.break") and not splashed then
 		splashed = true
 	end
@@ -180,7 +180,7 @@ end
 
 -- Required script
 local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")
-if not s then return tailData end -- Kills script early if ActionWheel.lua isnt found
+if not s then return tailData end -- Kills script early if ActionWheel.lua isn't found
 
 -- Pages
 local parentPage  = action_wheel:getPage("Main")
@@ -317,7 +317,7 @@ function events.RENDER(delta, context)
 				{
 					"",
 					{text = "Toggle Small Tail\n\n", bold = true, color = colors.primary},
-					{text = "Toggles the appearence of the tail into a smaller tail, only if the tail cannot form.\nScroll to control the size of the small tail.\n\n", color = colors.secondary},
+					{text = "Toggles the appearance of the tail into a smaller tail, only if the tail cannot form.\nScroll to control the size of the small tail.\n\n", color = colors.secondary},
 					{text = "Small tail size:\n", bold = true, color = colors.secondary},
 					{text = math.round(smallSize.curr * 100).."% Size"}
 				}
