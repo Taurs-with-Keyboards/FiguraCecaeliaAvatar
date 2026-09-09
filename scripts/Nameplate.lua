@@ -21,7 +21,7 @@ function events.ENTITY_INIT()
 		-- Apply
 		nameplate.ENTITY:pivot(offset)
 		
-		-- Kill function early if the namePivot isnt found
+		-- Kill function early if the namePivot isn't found
 		if not namePivot then return end
 		
 		-- Get pose
