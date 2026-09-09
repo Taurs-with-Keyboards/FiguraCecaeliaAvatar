@@ -1,7 +1,7 @@
 -- Required script
 local tail = require("scripts.Tail")
 
-function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, cat, path)
+function events.ON_PLAY_SOUND(id, pos, _, _, _, _, path)
 	
 	-- Don't trigger if the sound was played by Figura (prevent potential infinite loop)
 	if not path then return end

@@ -7,7 +7,6 @@ local camo    = sync.new("ColorCamo", false):config()
 local rainbow = sync.new("ColorRainbow", false):config()
 
 -- Variables
-local groundTimer = 0
 local initAvatarColor = vectors.hexToRGB(avatar:getColor() or "default")
 local grayMat = matrices.mat4(
 	vec(0.5, 0.5, 0.5, 0),
@@ -72,7 +71,6 @@ function events.TICK()
 			
 			-- Init colors
 			local calcColor   = vectors.vec3()
-			local calcOpacity = #blocks
 			
 			for i = 1, #blocks do
 				
@@ -117,7 +115,7 @@ function events.TICK()
 	
 end
 
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	-- Stops useless instructions
 	if client:isPaused() then return end
@@ -153,7 +151,7 @@ if next(colors) ~= nil then
 	end
 	
 	-- Update action wheel colors
-	function events.RENDER(delta, context)
+	function events.RENDER()
 		
 		if action_wheel:isEnabled() then
 			
@@ -200,7 +198,7 @@ acts.colorRainbowToggle = colorPage:newAction()
 	end)
 
 -- Update actions
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	if action_wheel:isEnabled() then
 		acts.colorPage

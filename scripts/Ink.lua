@@ -115,7 +115,7 @@ function events.TICK()
 	
 end
 
-function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, cat, path)
+function events.ON_PLAY_SOUND(id, pos, _, _, _, _, path)
 	
 	-- Don't trigger if the sound was played by Figura (prevent potential infinite loop)
 	if not path then return end
@@ -204,7 +204,7 @@ function events.TICK()
 	
 end
 
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	-- Variables
 	local screen = client:getScaledWindowSize()
@@ -240,7 +240,7 @@ function events.RENDER(delta, context)
 end
 
 -- Required scripts
-local s, pageNav, acts, colors = pcall(require, "scripts.ActionWheel")
+local s, _, acts, colors = pcall(require, "scripts.ActionWheel")
 if not s then return end -- Kills script early if ActionWheel.lua isn't found
 pcall(require, "scripts.ColorChange") -- Tries to find script, not required
 pcall(require, "scripts.Tail") -- Tries to find script, not required
@@ -279,7 +279,7 @@ acts.inkColor = parentPage:newAction()
 	end)
 
 -- Update action
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	if action_wheel:isEnabled() then
 		
