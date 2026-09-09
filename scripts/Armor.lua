@@ -114,7 +114,7 @@ local bootsGroups = {
 -- Tail parts
 local octopusGroups = cecaelia:createTable(function(part) return part:getName():find("ArmorOctopus") end)
 
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	-- Apply
 	for i = 1, #helmetGroups do
@@ -217,7 +217,7 @@ acts.armorOctopusToggle = armorPage:newAction()
 	end)
 
 -- Update actions
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	if action_wheel:isEnabled() then
 		acts.armorPage

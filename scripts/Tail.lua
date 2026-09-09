@@ -38,7 +38,7 @@ local tailData = {
 
 -- Check if a splash potion is broken near the player
 local splashed = false
-function events.ON_PLAY_SOUND(id, pos, vol, pitch, loop, category, path)
+function events.ON_PLAY_SOUND(id, pos, _, _, _, _, path)
 	
 	-- Don't trigger if the sound was played by Figura
 	if not path then return end
@@ -129,7 +129,7 @@ function events.TICK()
 	
 end
 
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	-- Variables
 	local tailApply = scale.tail.currPos
@@ -152,12 +152,12 @@ end
 if not host:isHost() then return tailData end
 
 -- Apply sound functions
-local tailSound = tailType:addFuncs(function()
+tailType:addFuncs(function()
 	if player:isLoaded() then
 		sounds:playSound("ambient.underwater.enter", player:getPos(), 0.35)
 	end
 end)
-local fallToggleSound = fallSound:addFuncs(function()
+fallSound:addFuncs(function()
 	if player:isLoaded() and fallSound.curr then
 		sounds:playSound("entity.puffer_fish.flop", player:getPos(), 0.35, 0.6)
 	end
@@ -166,12 +166,12 @@ end)
 -- Setup keybinds
 local keyboundSuccess = pcall(require, "lib.Keybound")
 if keyboundSuccess then
-	local tailKeybind = keybinds:newKeybind("Tail Sensitivity Type", "key.keyboard.keypad.1")
+	keybinds:newKeybind("Tail Sensitivity Type", "key.keyboard.keypad.1")
 		:config("TailTypeKeybind")
 		:onPress(function()
 			tailType:update((tailType.curr % #waterTypes) + 1)
 		end)
-	local smallKeybind = keybinds:newKeybind("Small Tail Toggle", "key.keyboard.keypad.2")
+	keybinds:newKeybind("Small Tail Toggle", "key.keyboard.keypad.2")
 		:config("TailSmallKeybind")
 		:onPress(function()
 			small:update(not small.curr)
@@ -286,7 +286,7 @@ local function timeStr(s)
 end
 
 -- Update actions
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	if action_wheel:isEnabled() then
 		acts.octopusPage

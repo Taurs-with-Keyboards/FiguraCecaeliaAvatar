@@ -6,10 +6,6 @@ if not s then return {} end
 local parts     = require("lib.PartsAPI")
 local squAssets = require("lib.SquAssets")
 local tailScale = require("scripts.Tail")
-local effects   = require("scripts.SyncedVariables")
-
--- Animation setup
-local anims = animations.Cecaelia
 
 -- Parts setup
 local cecaelia = parts.new(models.Cecaelia)
@@ -103,7 +99,7 @@ function events.TICK()
 	
 end
 
-function events.RENDER(delta, context)
+function events.RENDER(delta)
 	
 	-- Adjust tail rotations
 	for i = 1, #tailParts do

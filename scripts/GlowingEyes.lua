@@ -55,7 +55,7 @@ function events.TICK()
 	
 end
 
-function events.RENDER(delta, context)
+function events.RENDER(_, context)
 	
 	-- Apply
 	local renderType = context == "RENDER" and "EMISSIVE" or "EYES"
@@ -68,7 +68,7 @@ function events.RENDER(delta, context)
 end
 
 -- Apply sound function
-local toggleSound = toggle:addFuncs(function()
+toggle:addFuncs(function()
 	if player:isLoaded() and toggle.curr then
 		sounds:playSound("entity.glow_squid.ambient", player:getPos(), 0.75)
 	end
@@ -78,17 +78,17 @@ end)
 if not host:isHost() then return end
 
 -- Apply sound functions
-local powerSound = power:addFuncs(function()
+power:addFuncs(function()
 	if player:isLoaded() and power.curr then
 		sounds:playSound("entity.puffer_fish.flop", player:getPos())
 	end
 end)
-local nightVisionSound = nightVision:addFuncs(function()
+nightVision:addFuncs(function()
 	if player:isLoaded() and nightVision.curr then
 		sounds:playSound("entity.generic.drink", player:getPos(), 0.35)
 	end
 end)
-local waterSound = water:addFuncs(function()
+water:addFuncs(function()
 	if player:isLoaded() and water.curr then
 		sounds:playSound("ambient.underwater.enter", player:getPos(), 0.35)
 	end
@@ -97,7 +97,7 @@ end)
 -- Setup keybind
 local keyboundSuccess = pcall(require, "lib.Keybound")
 if keyboundSuccess then
-	local toggleKeybind = keybinds:newKeybind("Glowing Eyes Toggle", "key.keyboard.keypad.4")
+	keybinds:newKeybind("Glowing Eyes Toggle", "key.keyboard.keypad.4")
 		:config("EyesToggleKeybind")
 		:onPress(function()
 			toggle:update(not toggle.curr)
@@ -150,7 +150,7 @@ acts.glowEyesWater = glowEyesPage:newAction()
 	:toggled(water.curr)
 
 -- Update actions
-function events.RENDER(delta, context)
+function events.RENDER()
 	
 	if action_wheel:isEnabled() then
 		acts.glowEyesPage
