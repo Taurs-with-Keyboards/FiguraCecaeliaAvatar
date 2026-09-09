@@ -16,10 +16,13 @@ end
 if host:isHost() then
 	function events.TICK()
 		
+		local statuses = host:getStatusEffects()
+		
 		t.nV = false
-		for _, effect in ipairs(host:getStatusEffects()) do
-			if effect.name == "effect.minecraft.night_vision" then
+		for i = 1, #statuses do
+			if statuses[i].name == "effect.minecraft.night_vision" then
 				t.nV = true
+				break
 			end
 		end
 		if t.nV ~= wasNV then
@@ -41,10 +44,13 @@ end
 if host:isHost() then
 	function events.TICK()
 		
+		local statuses = host:getStatusEffects()
+		
 		t.dG = false
-		for _, effect in ipairs(host:getStatusEffects()) do
-			if effect.name == "effect.minecraft.dolphins_grace" then
+		for i = 1, #statuses do
+			if statuses[i].name == "effect.minecraft.dolphins_grace" then
 				t.dG = true
+				break
 			end
 		end
 		if t.dG ~= wasDG then

@@ -11,8 +11,8 @@ local membraneParts = cecaelia:createTable(function(part) return part:getName():
 
 -- Only run script if permission level is met
 if avatar:getPermissionLevel() ~= "MAX" then
-	for _, part in ipairs(membraneParts) do
-		part:visible(false)
+	for i = 1, #membraneParts do
+		membraneParts[i]:visible(false)
 	end
 	return
 end
@@ -44,7 +44,9 @@ local function makeWeb(name)
 end
 
 -- Create membrane webs
-for _, part in ipairs(membraneParts) do
+for i = 1, #membraneParts do
+	
+	local part = membraneParts[i]
 	
 	membrane:define(
 		part,
@@ -56,8 +58,8 @@ end
 function events.RENDER(delta, context)
 	
 	-- Visibility
-	for _, part in ipairs(membraneParts) do
-		part:visible(toggle.curr)
+	for i = 1, #membraneParts do
+		membraneParts[i]:visible(toggle.curr)
 	end
 	
 end

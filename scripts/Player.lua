@@ -35,7 +35,8 @@ local skinParts = cecaelia:createTable(function(part) return part:getName():find
 -- Layer parts
 local layerTypes = {"HAT", "JACKET", "LEFT_SLEEVE", "RIGHT_SLEEVE", "LEFT_PANTS_LEG", "RIGHT_PANTS_LEG", "CAPE", "TAIL_LAYER"}
 local layerParts = {}
-for _, type in pairs(layerTypes) do
+for i = 1, #layerTypes do
+	local type = layerTypes[i]
 	layerParts[type] = cecaelia:createTable(function(part) return part:getName():find(type) end)
 end
 
@@ -51,11 +52,11 @@ function events.RENDER(delta, context)
 	
 	-- Model shape
 	local slimShape = (skin.curr and vanillaAvatarType == "SLIM") or (slim.curr and not skin.curr)
-	for _, part in ipairs(defaultParts) do
-		part:visible(not slimShape)
+	for i = 1, #defaultParts do
+		defaultParts[i]:visible(not slimShape)
 	end
-	for _, part in ipairs(slimParts) do
-		part:visible(slimShape)
+	for i = 1, #slimParts do
+		slimParts[i]:visible(slimShape)
 	end
 	
 	-- First person arms toggle
@@ -67,8 +68,8 @@ function events.RENDER(delta, context)
 	
 	-- Skin textures
 	local skinType = skin.curr and "SKIN" or "PRIMARY"
-	for _, part in ipairs(skinParts) do
-		part:primaryTexture(skinType)
+	for i = 1, #skinParts do
+		skinParts[i]:primaryTexture(skinType)
 	end
 	
 	-- Cape textures
@@ -82,8 +83,8 @@ function events.RENDER(delta, context)
 		else
 			enabled = player:isSkinLayerVisible(layerType)
 		end
-		for _, part in ipairs(parts) do
-			part:visible(enabled)
+		for i = 1, #parts do
+			parts[i]:visible(enabled)
 		end
 	end
 	

@@ -1,10 +1,10 @@
 -- Check if an item exists before calling it in a function
 local function itemCheck(...)
 	
-	local arg = {...}
+	local items = {...}
 	
-	for _, item in ipairs(arg) do
-		local success, itemStack = pcall(world.newItem, item)
+	for i = 1, #items do
+		local success, itemStack = pcall(world.newItem, items[i])
 		if success then return itemStack end
 	end
 	

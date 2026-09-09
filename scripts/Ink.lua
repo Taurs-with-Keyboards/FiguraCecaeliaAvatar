@@ -32,7 +32,7 @@ local function shootInk(x)
 	-- Find color
 	local calcColor = vectors.hexToRGB(inkColor.curr) * inkPart:getSecondaryColor()
 	
-	for i = 1, x do
+	for _ = 1, x do
 		
 		-- Find angle with variation
 		local ang = inkPart:partToWorldMatrix()

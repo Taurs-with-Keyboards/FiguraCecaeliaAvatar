@@ -96,9 +96,9 @@ function events.TICK()
 				if unique.curr then
 					
 					-- Check fluid tags
-					local block = world.getBlockState(pos)
-					for _, tag in ipairs(block:getFluidTags()) do
-						if tag then
+					local tags = world.getBlockState(pos):getFluidTags()
+					for j = 1, #tags do
+						if tags[j] then
 							wet = true
 							break
 						end

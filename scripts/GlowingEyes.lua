@@ -59,8 +59,8 @@ function events.RENDER(delta, context)
 	
 	-- Apply
 	local renderType = context == "RENDER" and "EMISSIVE" or "EYES"
-	for _, part in ipairs(glowingParts) do
-		part
+	for i = 1, #glowingParts do
+		glowingParts[i]
 			:secondaryColor(eyes.currPos)
 			:secondaryRenderType(renderType)
 	end
