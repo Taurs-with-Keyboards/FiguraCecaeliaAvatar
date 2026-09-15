@@ -116,8 +116,8 @@ function events.TICK()
 	local groundAnim = (onGround or waterTimer == 0) and not (pose.swim or pose.crawl or pose.elytra or pose.spin or pose.sleep or player:getVehicle() or effects.cF)
 	
 	-- Directional velocity
-	local fbVel = vel:dot((dir.x_z):normalized())
-	local lrVel = vel:crossed(dir.x_z:normalized()).y
+	local fbVel = vel:dot((dir.x_z):normalized() --[[@as Vector3]])
+	local lrVel = vel:crossed(dir.x_z:normalized() --[[@as Vector3]]).y
 	local udVel = vel.y
 	local diagCancel = math.abs(lrVel) - math.abs(fbVel)
 	
@@ -186,7 +186,7 @@ function events.TICK()
 	local walk   = largeTail and groundAnim and vel.xz:length() ~= 0
 	local elytra = largeTail and not groundAnim and pose.elytra
 	local fall   = groundAnim and fallTimer == 0
-	local mount  = largeTail and player:getVehicle()
+	local mount  = largeTail and player:getVehicle() and true or false
 	local spin   = largeTail and pose.spin
 	local sleep  = largeTail and pose.sleep
 	local small  = smallTail and not swim
