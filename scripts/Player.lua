@@ -70,14 +70,14 @@ function events.RENDER(_, context)
 	cecaelia.outliner.Cape:primaryTexture(skin.curr and "CAPE" or "PRIMARY")
 	
 	-- Layer toggling
-	for layerType, parts in pairs(layerParts) do
+	for layerType, vanillaParts in pairs(layerParts) do
 		local enabled
 		if layerType == "TAIL_LAYER" then
 			enabled = player:isSkinLayerVisible("RIGHT_PANTS_LEG") or player:isSkinLayerVisible("LEFT_PANTS_LEG")
 		else
 			enabled = player:isSkinLayerVisible(layerType)
 		end
-		parts:visible(enabled)
+		vanillaParts:visible(enabled)
 	end
 	
 end
